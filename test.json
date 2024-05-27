@@ -1,0 +1,87 @@
+{
+    "userList": [
+      {
+        "seq": 1,
+        "email": "john.doe@example.com",
+        "userName": "John Doe",
+        "telephone": "123-456-7890",
+        "role": "admin",
+        "password": "password123"
+      },
+      {
+        "seq": 2,
+        "email": "jane.smith@example.com",
+        "userName": "Jane Smith",
+        "telephone": "987-654-3210",
+        "role": "user",
+        "password": "password456"
+      },
+      {
+        "seq": 3,
+        "email": "michael.brown@example.com",
+        "userName": "Michael Brown",
+        "telephone": "555-123-4567",
+        "role": "super",
+        "password": "password789"
+      },
+      {
+        "seq": 4,
+        "email": "emily.jones@example.com",
+        "userName": "Emily Jones",
+        "telephone": "555-987-6543",
+        "role": "user",
+        "password": "password101"
+      },
+      {
+        "seq": 5,
+        "email": "chris.johnson@example.com",
+        "userName": "Chris Johnson",
+        "telephone": "444-555-6666",
+        "role": "admin",
+        "password": "password102"
+      },
+      {
+        "seq": 6,
+        "email": "patricia.wilson@example.com",
+        "userName": "Patricia Wilson",
+        "telephone": "333-222-1111",
+        "role": "user",
+        "password": "password103"
+      },
+      {
+        "seq": 7,
+        "email": "daniel.moore@example.com",
+        "userName": "Daniel Moore",
+        "telephone": "222-333-4444",
+        "role": "user",
+        "password": "password104"
+      },
+      {
+        "seq": 8,
+        "email": "linda.taylor@example.com",
+        "userName": "Linda Taylor",
+        "telephone": "111-222-3333",
+        "role": "user",
+        "password": "password105"
+      },
+      {
+        "seq": 9,
+        "email": "kevin.anderson@example.com",
+        "userName": "Kevin Anderson",
+        "telephone": "999-888-7777",
+        "role": "admin",
+        "password": "password106"
+      },
+      {
+        "seq": 10,
+        "email": "susan.thomas@example.com",
+        "userName": "Susan Thomas",
+        "telephone": "888-777-6666",
+        "role": "user",
+        "password": "password107"
+      }
+    ],
+    "totalCount": 10,
+    "currentPage": 1
+  }
+  

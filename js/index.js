@@ -1,7 +1,15 @@
 const fetchData = async() => {
-    return axios.get("../test.json")
+    // return axios.get("../test.json")
+    const params = {
+        sortColumn: 'id',
+        sortOrder: 'asc',
+        pageSize: 50,
+        currentPage: 1
+    }
+    // return axios.get("http://192.168.1.51:7278/api/User", params)
+    return axios.get("http://192.168.1.51:5281/api/User?sortColumn=id&sortOrder=asc&pageSize=30&currentPage=1")
     .then((response) => {
-        // console.log(response);
+        console.log(response);
         return response.data;
     })
 }
@@ -9,16 +17,16 @@ const fetchData = async() => {
 const tableBody = document.querySelector('.table-body');
 
 
-handleModify = (e, user) => {
+const handleModify = (e, user) => {
     const editUsername = document.querySelector('#edit-username');
     const editEmail = document.querySelector('#edit-email');
     const editTelephone = document.querySelector('#edit-telephone');
     const editRole = document.querySelector('#edit-role');
     const editPassword = document.querySelector('#edit-password');
 
-    editUsername.value = user.userName;
+    editUsername.value = user.name;
     editEmail.value = user.email;
-    editTelephone.value = user.telephone;
+    editTelephone.value = user.phone;
     editRole.value =  user.role;
     editPassword.value = user.password;
     // console.log(user);
@@ -28,11 +36,11 @@ const populateTable = async () => {
     const data = await fetchData();
     if (!data) return;
 
-    data.userList.forEach(user => {
+    data.users.forEach(user => {
         const row = document.createElement('tr');
 
         const seqCell = document.createElement('td');
-        seqCell.textContent = user.seq;
+        seqCell.textContent = user.id;
         row.appendChild(seqCell);
 
         const emailCell = document.createElement('td');
@@ -40,11 +48,11 @@ const populateTable = async () => {
         row.appendChild(emailCell);
 
         const userNameCell = document.createElement('td');
-        userNameCell.textContent = user.userName;
+        userNameCell.textContent = user.name;
         row.appendChild(userNameCell);
 
         const telephoneCell = document.createElement('td');
-        telephoneCell.textContent = user.telephone;
+        telephoneCell.textContent = user.phone;
         row.appendChild(telephoneCell);
 
         const roleCell = document.createElement('td');
@@ -81,14 +89,48 @@ const populateTable = async () => {
 populateTable();
 
 
-const addUsername = document.querySelector('#add-username');
-const addEmail = document.querySelector('#add-email');
-const addTelephone = document.querySelector('#add-telephone');
-const addRole = document.querySelector('#add-role');
-const addPassword = document.querySelector('#add-password');
+document.addEventListener("DOMContentLoaded", () => {
+    const addUsername = document.querySelector('#add-username');
+    const addEmail = document.querySelector('#add-email');
+    const addTelephone = document.querySelector('#add-telephone');
+    const addRole = document.querySelector('#add-role');
+    const addPassword = document.querySelector('#add-password');
+    const usernameMessage = document.querySelector('username-message');
+    const emailMessage = document.querySelector('.email-message');
+    const telephoneMessage = document.querySelector('.telephone-message');
+    const passwordMessage = document.querySelector('.password-message');
+})
 
-// %%%%%%%%%% add %%%%%%%%%%
+let isValid = false;
+
+///////////////////////////////// add /////////////////////////////////
+const checkFormValid = () => {
+    console.log(addUsername.value.trim());
+    if(addUsername.value.trim() === ''){
+        console.log("Fff");
+        usernameMessage.textContent = 'Please enter a name';
+        isValid = false;
+    }
+    //else if(addEmail.value.trim() === ''){
+    //     emailMessage.textContent = 'Please enter a email';
+    //     // isValid = false;
+    // }else if(addTelephone.value.trim() === ''){
+    //     telephoneMessage.textContent = 'Please enter a telephone';
+    //     // isValid = false;
+    // }else if(addPassword.value.trim() === ''){
+    //     passwordMessage.textContent = 'Please enter a password';
+    //     // isValid = false;
+    // }
+    
+}
+
 const addUser = () => {
+    checkFormValid();
+    
+    if(!isValid){
+        return;
+    }
+
     const params = {
         username: addUsername.value,
         email: addEmail.value,
@@ -102,6 +144,53 @@ const addUser = () => {
     ).catch(console.error)
 }
 
+
 const addBtn = document.querySelector('.add-btn');
 addBtn.addEventListener("click", addUser); 
+
+
+
+///////////////////////////////// debounce /////////////////////////////////
+let debounceTimer;
+
+const debounce = (func) => {
+
+    clearTimeout(debounceTimer);
+
+    debounceTimer = setTimeout(() => {
+        func();
+    }, 300);
+}
+
+///////////////////////////////// delete /////////////////////////////////
+const checkDeleteBtn = document.querySelector('.check-delete-btn');
+
+const deleteUser = () => {
+    console.log("click");
+    
+    axios.post('http://localhost:3000/deleteUser', {seq: '1'})
+    .then(
+        console.log("success")
+    ).catch(console.error)
+}
+
+checkDeleteBtn.addEventListener("click",  () => debounce(deleteUser));
+
+///////////////////////////////// update /////////////////////////////////
+const checkUpdateBtn = document.querySelector('.check-update-btn');
+checkUpdateBtn.addEventListener('click', () => debounce(updateUser));
+
+
+
+///////////////////////////////// pagination /////////////////////////////////
+let currentPage = 1;
+let totalPage;
+let totalCount;
+let pagePerView = 50;
+
+// << 누르면 1 page 
+// >> 누르면 totalPage 
+
+
+totalPage = Math.ceil(50 / totalCount); 
 

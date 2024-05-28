@@ -57,8 +57,22 @@ tr{
     border-bottom: 1px solid #e1e4eb;
 }
 
+thead tr{
+    border-bottom: 1px solid #828ca7;
+}
+
+tbody tr{
+    border-bottom: 1px solid #e1e4eb;
+}
+
 tbody tr:hover{
     background-color: #f1f7ff;
+}
+
+tbody{
+    display: block;
+    height: 480px;
+    overflow-y: scroll;
 }
 
 th{
@@ -78,16 +92,16 @@ tr th, tr td{
 
 /* 80, 400, 264, 264, 264, 264, 60, 60 */
 tr td:nth-child(1), th:nth-child(1){
-    width: 80px;
+    width: 120px;
 }
 
 tr td:nth-child(2), th:nth-child(2){
-    width: 400px;
+    width: 450px;
     text-align: left;
 }
 
 tr :nth-child(n+3):nth-child(-n+6){
-    width: 264px;
+    width: 284px;
 }
 
 tr :nth-child(n+7):nth-child(-n+8){
@@ -100,3 +114,29 @@ tr :nth-child(n+7):nth-child(-n+8){
     cursor: pointer;
 }
 
+
+.pagination-wrap{
+    height: 120px;
+    display: flex;
+    justify-content: right;
+    align-items: end;
+}
+
+.pagination-wrap label{
+    height: 38px;
+    align-content: center;
+    color: #828ca7;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.items-per-view{
+    width: 48px;
+    height: 38px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    margin: 0 10px 16px 6px;
+    padding: 0 4px 0 6px;
+    outline: 0;
+    font-size: 14px;
+}

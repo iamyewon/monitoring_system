@@ -38,8 +38,8 @@
                 </tbody>
             </table>
             <div class="pagination-wrap">
-                <label for="">Items Per View</label>
-                <select class="items-per-view">
+                <label for="items-per-view">Items Per View</label>
+                <select id="items-per-view" class="items-per-view">
                     <option value="50">50</option>
                     <option value="100">100</option>
                     <option value="300">300</option>
@@ -79,22 +79,22 @@
                 <div class="modal-body">
                     <form>
                         <div class="input-box">
-                            <label for="username">User name</label>
+                            <label for="add-username">User name</label>
                             <input type="text" id="add-username" name="username" autocomplete="off">
                             <p class="username-message message"></p>
                         </div>
                         <div class="input-box">
-                            <label for="email">Email</label>
+                            <label for="add-email">Email</label>
                             <input type="text" id="add-email" name="email" autocomplete="off">
                             <p class="message"></p>
                         </div>
                         <div class="input-box">
-                            <label for="telephone">Telephone</label>
+                            <label for="add-telephone">Telephone</label>
                             <input type="text" id="add-telephone" name="telephone" autocomplete="off">
                             <p class="message"></p>
                         </div>
                         <div class="input-box">
-                            <label for="role">Role</label>
+                            <label for="add-role">Role</label>
                             <select name="role" id="add-role">
                                 <option value="super">SUPER</option>
                                 <option value="admin">ADMIN</option>
@@ -102,8 +102,9 @@
                             </select>
                         </div>
                         <div class="input-box">
-                            <label for="password">Password</label>
+                            <label for="add-password">Password</label>
                             <input type="password" id="add-password" name="password" autocomplete="off">
+                            <i class="bi bi-eye"></i>
                         </div>
                     </form>
                 </div>
@@ -126,22 +127,22 @@
                 <div class="modal-body">
                     <form>
                         <div class="input-box">
-                            <label for="username">User name</label>
+                            <label for="edit-username">User name</label>
                             <input type="text" id="edit-username" name="username" autocomplete="off" readonly>
                             <p class="username-message message"></p>
                         </div>
                         <div class="input-box">
-                            <label for="email">Email</label>
+                            <label for="edit-email">Email</label>
                             <input type="text" id="edit-email" name="email" autocomplete="off" readonly>
                             <p class="email-message message"></p>
                         </div>
                         <div class="input-box">
-                            <label for="telephone">Telephone</label>
+                            <label for="edit-telephone">Telephone</label>
                             <input type="text" id="edit-telephone" name="telephone" autocomplete="off">
                             <p class="telephone-message message"></p>
                         </div>
                         <div class="input-box">
-                            <label for="role">Role</label>
+                            <label for="edit-role">Role</label>
                             <select name="role" id="edit-role">
                                 <option value="super">SUPER</option>
                                 <option value="admin">ADMIN</option>
@@ -149,7 +150,7 @@
                             </select>
                         </div>
                         <div class="input-box">
-                            <label for="password">Password</label>
+                            <label for="edit-password">Password</label>
                             <input type="password" id="edit-password" name="password" autocomplete="off">
                             <p class="password-message message"></p>
                         </div>

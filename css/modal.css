@@ -55,7 +55,7 @@
     border: 0;
 }
 
-.input-box .messege{
+.input-box .message{
     display: none;
 }
 
@@ -114,3 +114,6 @@ input:read-only:focus{
     background-color: #ec2424;
 }
 
+.show{
+    display: block;
+}

@@ -1,13 +1,13 @@
 const fetchData = async() => {
-    // return axios.get("../test.json")
     const params = {
         sortColumn: 'id',
         sortOrder: 'asc',
         pageSize: 50,
         currentPage: 1
     }
+    return axios.get("../test.json")
     // return axios.get("http://192.168.1.51:7278/api/User", params)
-    return axios.get("http://192.168.1.51:5281/api/User?sortColumn=id&sortOrder=asc&pageSize=30&currentPage=1")
+    // return axios.get("http://192.168.1.51:5281/api/User?sortColumn=id&sortOrder=asc&pageSize=30&currentPage=1")
     .then((response) => {
         console.log(response);
         return response.data;
@@ -89,38 +89,34 @@ const populateTable = async () => {
 populateTable();
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    const addUsername = document.querySelector('#add-username');
-    const addEmail = document.querySelector('#add-email');
-    const addTelephone = document.querySelector('#add-telephone');
-    const addRole = document.querySelector('#add-role');
-    const addPassword = document.querySelector('#add-password');
-    const usernameMessage = document.querySelector('username-message');
-    const emailMessage = document.querySelector('.email-message');
-    const telephoneMessage = document.querySelector('.telephone-message');
-    const passwordMessage = document.querySelector('.password-message');
-})
+const addUsername = document.querySelector('#add-username');
+const addEmail = document.querySelector('#add-email');
+const addTelephone = document.querySelector('#add-telephone');
+const addRole = document.querySelector('#add-role');
+const addPassword = document.querySelector('#add-password');
+
+const usernameMessage = document.querySelector('.username-message');
+const emailMessage = document.querySelector('.email-message');
+const telephoneMessage = document.querySelector('.telephone-message');
+const passwordMessage = document.querySelector('.password-message');
 
 let isValid = false;
 
 ///////////////////////////////// add /////////////////////////////////
 const checkFormValid = () => {
-    console.log(addUsername.value.trim());
     if(addUsername.value.trim() === ''){
-        console.log("Fff");
+        console.log("fff");
         usernameMessage.textContent = 'Please enter a name';
-        isValid = false;
+        usernameMessage.classList.add('show');
+    }else if(addEmail.value.trim() === ''){
+        console.log("123");
+        emailMessage.textContent = 'Please enter a email';
+        usernameMessage.classList.add('show');
+    }else if(addTelephone.value.trim() === ''){
+        telephoneMessage.textContent = 'Please enter a telephone';
+    }else if(addPassword.value.trim() === ''){
+        passwordMessage.textContent = 'Please enter a password';
     }
-    //else if(addEmail.value.trim() === ''){
-    //     emailMessage.textContent = 'Please enter a email';
-    //     // isValid = false;
-    // }else if(addTelephone.value.trim() === ''){
-    //     telephoneMessage.textContent = 'Please enter a telephone';
-    //     // isValid = false;
-    // }else if(addPassword.value.trim() === ''){
-    //     passwordMessage.textContent = 'Please enter a password';
-    //     // isValid = false;
-    // }
     
 }
 

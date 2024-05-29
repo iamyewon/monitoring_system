@@ -41,6 +41,7 @@
     padding: 12px 24px 11px 10px;
 }
 
+/* 적용X */
 .input-box select option{
     padding: 30px 10px 9px !important;
     /* background-color: red; */
@@ -55,8 +56,10 @@
     border: 0;
 }
 
-.input-box .message{
-    display: none;
+.message{
+    color: #ff4040;
+    font-size: 12px;
+    margin-bottom: 0;
 }
 
 .modal .modal-footer{
@@ -116,4 +119,7 @@ input:read-only:focus{
 
 .show{
     display: block;
+}
+.hidden {
+    display: none;
 }

@@ -81,17 +81,17 @@
                         <div class="input-box">
                             <label for="add-username">User name</label>
                             <input type="text" id="add-username" name="username" autocomplete="off">
-                            <p class="username-message message"></p>
+                            <p class="add-username-message message hidden"></p>
                         </div>
                         <div class="input-box">
                             <label for="add-email">Email</label>
                             <input type="text" id="add-email" name="email" autocomplete="off">
-                            <p class="message"></p>
+                            <p class="add-email-message message hidden"></p>
                         </div>
                         <div class="input-box">
                             <label for="add-telephone">Telephone</label>
                             <input type="text" id="add-telephone" name="telephone" autocomplete="off">
-                            <p class="message"></p>
+                            <p class="add-telephone-message message hidden"></p>
                         </div>
                         <div class="input-box">
                             <label for="add-role">Role</label>
@@ -103,13 +103,16 @@
                         </div>
                         <div class="input-box">
                             <label for="add-password">Password</label>
-                            <input type="password" id="add-password" name="password" autocomplete="off">
-                            <i class="bi bi-eye"></i>
+                            <div>
+                                <input type="password" id="add-password" name="password" autocomplete="off">
+                                <i class="bi bi-eye"></i>
+                            </div>
+                            <p class="add-password-message message hidden"></p>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                    <button type="button" class="btn btn-secondary cancel-btn" data-bs-dismiss="modal">CANCEL</button>
                     <button type="button" class="btn btn-primary add-btn">SAVE</button>
                 </div>
             </div>

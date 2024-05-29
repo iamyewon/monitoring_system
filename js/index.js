@@ -95,33 +95,48 @@ const addTelephone = document.querySelector('#add-telephone');
 const addRole = document.querySelector('#add-role');
 const addPassword = document.querySelector('#add-password');
 
-const usernameMessage = document.querySelector('.username-message');
-const emailMessage = document.querySelector('.email-message');
-const telephoneMessage = document.querySelector('.telephone-message');
-const passwordMessage = document.querySelector('.password-message');
+const addUsernameMessage = document.querySelector('.add-username-message');
+const addEmailMessage = document.querySelector('.add-email-message');
+const addTelephoneMessage = document.querySelector('.add-telephone-message');
+const addPasswordMessage = document.querySelector('.add-password-message');
 
 let isValid = false;
 
+let isValidEmail = false;
+let isValidUserName = false;
+let isValidTelephone = false;
+let isValidPassword = false; 
+
 ///////////////////////////////// add /////////////////////////////////
-const checkFormValid = () => {
-    if(addUsername.value.trim() === ''){
-        console.log("fff");
-        usernameMessage.textContent = 'Please enter a name';
-        usernameMessage.classList.add('show');
-    }else if(addEmail.value.trim() === ''){
-        console.log("123");
-        emailMessage.textContent = 'Please enter a email';
-        usernameMessage.classList.add('show');
-    }else if(addTelephone.value.trim() === ''){
-        telephoneMessage.textContent = 'Please enter a telephone';
-    }else if(addPassword.value.trim() === ''){
-        passwordMessage.textContent = 'Please enter a password';
+const checkEmpty = (value, alertTag, alertMessage) => {``
+    if (value === '') {
+        alertTag.textContent = alertMessage
+        alertTag.classList.remove('hidden');
+    } else {
+        alertTag.classList.add('hidden');
     }
-    
+}
+
+const validateEmail = (email, value, alertTag, alertMessage) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+const checkValidation = () => {
+    if(validateEmail(addEmail.value)){
+        
+    }
+}
+
+const checkForm = () => {
+    checkEmpty(addUsername.value.trim(), addUsernameMessage, "Please enter a name");
+    checkEmpty(addEmail.value.trim(), addEmailMessage, "Please enter a email");
+    checkEmpty(addTelephone.value.trim(), addTelephoneMessage, "Please enter a phone");
+    checkEmpty(addPassword.value.trim(), addPasswordMessage, "Please enter a password");
 }
 
 const addUser = () => {
-    checkFormValid();
+    checkForm();
     
     if(!isValid){
         return;
@@ -190,3 +205,16 @@ let pagePerView = 50;
 
 totalPage = Math.ceil(50 / totalCount); 
 
+
+///////////////////////////////// cancel /////////////////////////////////
+const cancelBtn = document.querySelector('.cancel-btn');
+cancelBtn.addEventListener("click", cancelModal);
+
+const cancelModal = () => {
+    console.log("clcikQ!fsd");
+    // addUsername.value = '';
+    // addEmail.value = '';
+    // addTelephone.value = '';
+    // addRole.value = '';
+    // addPassword.value = '';
+}

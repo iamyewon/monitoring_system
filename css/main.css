@@ -78,7 +78,7 @@ tbody{
 th{
     font-size: 13px;
     height: 38px;
-    /* cursor: pointer; */
+    cursor: pointer;
 }
 
 td{
@@ -140,4 +140,36 @@ tr :nth-child(n+6):nth-child(-n+7){
     padding: 0 4px 0 6px;
     outline: 0;
     font-size: 14px;
+}
+
+.pagination, .pagination-lists{
+    display: flex;
+}
+
+.pagination-lists{
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.pagination-lists li{
+    width: 32px;
+    height: 32px;
+    margin-right: 6px;
+    padding: 9px 12px 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.pagination-lists li:hover{
+    background-color: #dde0e6;
+    color: #091e42;
+}
+
+.active, .active:hover{
+    background-color: #2684ff !important;
+    color: #fafafa !important;
 }

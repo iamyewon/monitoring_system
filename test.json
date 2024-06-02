@@ -1,4 +1,6 @@
 {
+  "totalCount": 80,
+  "currentPage": 1,
   "users": [
       {
           "id": 1,

@@ -41,29 +41,25 @@
             <div class="pagination-wrap">
                 <label for="items-per-view">Items Per View</label>
                 <select id="items-per-view" class="items-per-view">
+                    <option value="3">3</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                     <option value="300">300</option>
                 </select>
-                <nav aria-label="page-navigation" class="pagination-container">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <!-- <li class="page-item"><a class="page-link" href="#"></a></li> -->
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
+                <nav class="pagination">
+                    <!-- currentPage = 1 이면 보이게/안보이게 -->
+                    <a href="javascript:void(0)">
+                        <img class="first-btn pagination-prev" src="/images/first_btn.png" alt="first btn" >
+                        <img class="prev-btn pagination-prev hidden" src="/images/prev_btn.png" alt="prev btn btn" >
+                    </a>
+                    <ul class="pagination-lists">                
+            
+                   </ul> 
+                    <!-- currentPage = itemsPerView/totalCount 반올림. 이면 보이게/안보이게 -->
+                    <a href="javascript:void(0)">
+                        <img class="last-btn pagination-next hidden" src="/images/last_btn.png" alt="first btn" >
+                        <img class="next-btn pagination-next" src="/images/next_btn.png" alt="prev btn btn" >
+                    </a>
                 </nav>
             </div>
         </div>
@@ -106,8 +102,8 @@
                             <label for="add-password">Password</label>
                             <div class="password-wrap">
                                 <input type="password" id="add-password" name="password" autocomplete="off">
-                                <img src="images/pw_on.png" class="password-icon password-on hidden" alt="비밀번호 보기">
-                                <img src="images/pw_off.png" class="password-icon password-off" alt="비밀번호 보기">
+                                <!-- <img src="images/pw_on.png" class="password-icon password-on" alt="비밀번호 보기"> -->
+                                <img src="images/pw_off.png" class="password-icon add-pw" alt="비밀번호 보기">
                             </div>
                             <p class="add-password-message message hidden"></p>
                         </div>
@@ -156,8 +152,8 @@
                             <label for="edit-password">Password</label>
                             <div class="password-wrap">
                                 <input type="password" id="edit-password" name="password" autocomplete="off">
-                                <img src="images/pw_on.png" class="password-icon password-on hidden" alt="비밀번호 보기">
-                                <img src="images/pw_off.png" class="password-icon password-off" alt="비밀번호 보기">
+                                <!-- <img src="images/pw_on.png" class="password-icon password-on hidden" alt="비밀번호 보기"> -->
+                                <img src="images/pw_off.png" class="password-icon edit-pw" alt="비밀번호 숨기기">
                             </div>
                             <p class="edit-password-message message"></p>
                         </div>
@@ -192,5 +188,11 @@
         </div>
     </div>
     <script src="js/index.js"></script>
+    <script src="js/validationUtils.js"></script>
+    <script src="js/edit.js"></script>
+    <script src="js/add.js"></script>
+    <script src="js/inquiry.js"></script>
+    <script src="js/pagination.js"></script>
+    <!-- apis 로 묶어야 할지 -->
 </body>
 </html>

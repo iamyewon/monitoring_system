@@ -73,4 +73,3 @@ const populateTable = async () => {
 };
 
 populateTable();
-

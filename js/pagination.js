@@ -28,6 +28,14 @@ const populatePagination = (data) => {
         return ellipsis;
     };
 
+    const printPageNumber = (i) => {
+        const list = document.createElement('li');
+        list.textContent = i;
+        list.classList.add('pagination-list');
+        currentPage === i && list.classList.add('active');
+        PaginationLists.appendChild(list);
+    }
+
     const lastPage = document.createElement('li');
     lastPage.textContent = totalPages;
     lastPage.classList.add('pagination-list');
@@ -42,10 +50,7 @@ const populatePagination = (data) => {
     // 1. totalPage가 maxVisiblePage(7)보다 작을 때 
     if(totalPages <= maxVisiblePages){
         for(let i = 1; i <= totalPages; i++){
-            const list = document.createElement('li');
-            list.textContent = i;
-            list.classList.add('pagination-list');
-            PaginationLists.appendChild(list);
+            printPageNumber(i);
         }
 
     // 2. totalPage가 maxVisiblePage(7)보다 클 때
@@ -53,14 +58,7 @@ const populatePagination = (data) => {
         // 현재 페이지가 4 이하 일때 -> 1, 2, 3, 4, 5, ..., totalPage 
         if (currentPage <= 4) {
             for (let i = 1; i <= 5; i++) {
-                const list = document.createElement('li');
-                list.textContent = i;
-                list.classList.add('pagination-list');
-                PaginationLists.appendChild(list);
-
-                if (i === currentPage) {
-                    list.classList.add('active'); // 현재 페이지에 active 클래스 추가
-                }
+                printPageNumber(i);
             }
             
             PaginationLists.appendChild(createEllipsis());
@@ -73,23 +71,17 @@ const populatePagination = (data) => {
             PaginationLists.appendChild(firstPage);
             PaginationLists.appendChild(createEllipsis());
             
-            for (let i = totalPages - 4; i < totalPages; i++) {
-                const list = document.createElement('li');
-                list.textContent = i;
-                list.classList.add('pagination-list');
-                PaginationLists.appendChild(list);
+            for (let i = totalPages - 4; i <= totalPages; i++) {
+                printPageNumber(i);
             }
-            PaginationLists.appendChild(lastPage);
+            
         } else {
             // 현재 페이지가 1+4 이상, totalPage-4 이하 일 때 
             PaginationLists.appendChild(firstPage);
             PaginationLists.appendChild(createEllipsis());
 
             for (let i = currentPage-1; i <= currentPage+1; i++) {
-                const list = document.createElement('li');
-                list.textContent = i;
-                list.classList.add('pagination-list');
-                PaginationLists.appendChild(list);
+                printPageNumber(i);
             }
 
             PaginationLists.appendChild(createEllipsis());
@@ -99,7 +91,7 @@ const populatePagination = (data) => {
     }    
 }
 
-PaginationLists.addEventListener('click', (e) => {  
+PaginationLists.addEventListener('click', async(e) => {  
     const {textContent} = e.target;  
     if(e.target.localName !== 'li'){
         return;
@@ -107,9 +99,9 @@ PaginationLists.addEventListener('click', (e) => {
     
     currentPage = Number(textContent); // 잘 바뀌는데  ㅠ.ㅠ?
     document.querySelector('.active').classList.remove('active');
-    e.target.classList.add('active');
+    // e.target.classList.add('active');
     
-    const data = fetchData();
+    const data = await fetchData();
     populatePagination(data);
 })
 

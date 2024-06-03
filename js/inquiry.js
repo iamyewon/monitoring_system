@@ -1,16 +1,18 @@
-const fetchData = async() => {
+const fetchData = () => {
     const params = {
         sortColumn: 'id',
         sortOrder: 'asc',
         pageSize: 50,
         currentPage: 1
     }
-    return axios.get("../test.json")
+    // return axios.get("../test.json")
+    return axios.get("http://192.168.1.51:5281/users", {params})
     // return axios.get("http://192.168.1.51:5281/users?sortColumn=id&sortOrder=asc&pageSize=30&currentPage=1")
     .then((response) => {
         // console.log(response);
         return response.data;
     })
+    // .catch(()=> alert('잘못된 요청!'))
 }
 
 

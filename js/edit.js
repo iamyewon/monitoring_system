@@ -3,7 +3,7 @@ const populateEditModal = (e, user) => {
     editUsername.value = user.name;
     editEmail.value = user.email;
     editTelephone.value = user.phone;
-    editRole.value =  user.role;
+    editRole.value = user.role.toLowerCase();
     editPassword.value = user.password;
     editId.value = user.id;
 

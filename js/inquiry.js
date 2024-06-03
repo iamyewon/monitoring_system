@@ -1,25 +1,22 @@
 const fetchData = () => {
     const params = {
-        sortColumn: 'id',
-        sortOrder: 'asc',
-        pageSize: 50,
-        currentPage: 1
+        sortColumn,
+        sortOrder,
+        pageSize,
+        currentPage
     }
     // return axios.get("../test.json")
     return axios.get("http://192.168.1.51:5281/users", {params})
-    // return axios.get("http://192.168.1.51:5281/users?sortColumn=id&sortOrder=asc&pageSize=30&currentPage=1")
     .then((response) => {
-        // console.log(response);
         return response.data;
     })
     // .catch(()=> alert('잘못된 요청!'))
 }
 
 
-///////////////////////////////// make table /////////////////////////////////
-const populateTable = async () => {
-    const data = await fetchData();
-    if (!data) return;
+
+const populateTable = (data) => {
+    tableBody.innerHTML = '';
 
     data.users.forEach(user => {
         const row = document.createElement('tr');
@@ -70,8 +67,34 @@ const populateTable = async () => {
 
         tableBody.appendChild(row);
     })
-
-    populatePagination(data);
 };
 
-populateTable();
+const init = async () => {
+    const data = await fetchData();
+    populatePagination(data);
+    populateTable(data);
+}
+
+init();
+
+
+const theadRow = document.querySelector('.thead-row');
+theadRow.addEventListener("click", async (e) => {
+    sortColumn = e.target.id;
+    sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+
+    const data = await fetchData();
+    if (!data) return;
+    populatePagination(data);
+    populateTable(data);
+})
+
+itemsPerView.addEventListener("change", async (e) => {
+    pageSize = Number(e.target.value);
+    currentPage = 1;
+
+    const data = await fetchData();
+    if (!data) return;
+    populatePagination(data);
+    populateTable(data);
+})

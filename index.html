@@ -24,12 +24,12 @@
         <div class="table-container">
             <table>
                 <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Email</th>
-                        <th>User Name</th>
-                        <th>Telephone</th>
-                        <th>Role</th>
+                    <tr class="thead-row">
+                        <th id="id">No.</th>
+                        <th id="email">Email</th>
+                        <th id="name">User Name</th>
+                        <th id="phone">Telephone</th>
+                        <th id="role">Role</th>
                         <!-- <th>Password</th> -->
                         <th> </th>
                         <th> </th>
@@ -41,7 +41,6 @@
             <div class="pagination-wrap">
                 <label for="items-per-view">Items Per View</label>
                 <select id="items-per-view" class="items-per-view">
-                    <option value="3">3</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                     <option value="300">300</option>
@@ -191,8 +190,9 @@
     <script src="js/validationUtils.js"></script>
     <script src="js/edit.js"></script>
     <script src="js/add.js"></script>
-    <script src="js/inquiry.js"></script>
+    <!-- <script src="js/inquiry.js"></script> -->
     <script src="js/pagination.js"></script>
+    <script src="js/inquiry.js"></script>
     <!-- apis 로 묶어야 할지 -->
 </body>
 </html>

@@ -5,21 +5,22 @@
 // let pagePerView = 50;
 
 const itemsPerView = document.querySelector('.items-per-view');
-const perView = Number(itemsPerView.value); // 조회 api에 필요 
-
 const PaginationLists = document.querySelector('.pagination-lists');
 
 let currentPage = 1; // 조회 api에 필요 
+let sortColumn = 'id';
+let sortOrder = 'asc';
+let pageSize = 30;
 
 const populatePagination = (data) => {
     const {totalCount} = data; 
-    const totalPages = Math.ceil(totalCount / perView); 
+    const totalPages = Math.ceil(totalCount / pageSize); 
     const maxVisiblePages = 7; 
-
 
     const firstPage = document.createElement('li');
     firstPage.textContent = 1;
     firstPage.classList.add('pagination-list');
+    currentPage === 1 && firstPage.classList.add('active');
 
     const createEllipsis = () => {
         const ellipsis = document.createElement('li');
@@ -42,9 +43,7 @@ const populatePagination = (data) => {
 
 
     // 기존 페이지네이션 항목 제거
-    while(PaginationLists.firstChild){
-        PaginationLists.removeChild(PaginationLists.firstChild);
-    }
+    PaginationLists.innerHTML = '';
 
 
     // 1. totalPage가 maxVisiblePage(7)보다 작을 때 
@@ -91,28 +90,55 @@ const populatePagination = (data) => {
     }    
 }
 
+
+const firstBtn = document.querySelector('.first-btn');
+const prevBtn = document.querySelector('.prev-btn');
+const lastBtn = document.querySelector('.last-btn');
+const nextBtn = document.querySelector('.next-btn');
+
+
 PaginationLists.addEventListener('click', async(e) => {  
-    const {textContent} = e.target;  
-    if(e.target.localName !== 'li'){
+    const {textContent, localName} = e.target;  
+    if(localName !== 'li'){
+        return;
+    }
+
+    if(Number(textContent) === currentPage){
         return;
     }
     
-    currentPage = Number(textContent); // 잘 바뀌는데  ㅠ.ㅠ?
+    currentPage = Number(textContent);
     document.querySelector('.active').classList.remove('active');
-    // e.target.classList.add('active');
-    
+
     const data = await fetchData();
+    if (!data) return;
     populatePagination(data);
-})
+    populateTable(data);
 
+    const {totalCount} = data; 
+    const totalPages = Math.ceil(totalCount / pageSize); 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const list = document.querySelector('.pagination-list');
-    if(list.textContent = '1'){
-        list.classList.add('active');
+    if(currentPage > 1){
+        firstBtn.classList.add('hidden');
+        prevBtn.classList.remove('hidden');
+    }else{
+        firstBtn.classList.remove('hidden');
+        prevBtn.classList.add('hidden');
     }
-    
+
+    if(currentPage === totalPages){
+        nextBtn.classList.add('hidden');
+        lastBtn.classList.remove('hidden');
+    }else{
+        lastBtn.classList.add('hidden');
+        nextBtn.classList.remove('hidden');
+    }
+    // TODO : < > 버튼 이벤트
 })
+
+
+
+
 
     // Add event listeners
     // document.querySelectorAll('.pagination li').forEach(item => {
@@ -121,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //         if (page) {
     //             currentPage = parseInt(page);
     //             renderPagination(currentPage, totalPages);
-    //         } else if (e.target.classList.contains('prev') && currentPage > 1) {
+    //         } else if (e.target.classList.co ntains('prev') && currentPage > 1) {
     //             currentPage--;
     //             renderPagination(currentPage, totalPages);
     //         } else if (e.target.classList.contains('next') && currentPage < totalPages) {

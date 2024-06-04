@@ -11,7 +11,6 @@ const populateEditModal = (e, user) => {
 }
 
 editTelephone.addEventListener('blur', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
-editPassword.addEventListener('blur', () => checkPasswordValidation(editPassword, editPasswordMessage));
 
 const handleUpdate = () => {
     if(isValidTelephone && isValidPassword){
@@ -31,10 +30,15 @@ const handleUpdate = () => {
         password: editPassword.value,
     }
 
-    axios.post('http://localhost:3000/updateUser', params)
+    axios.put(`http://192.168.1.51:5281/users/${params.id}`, params)
     .then((response) => {
-        console.log("success update");
-    }).catch(console.error)
+        console.log("Success update");
+    })
+    .catch(console.error);
 }
 
+checkUpdateBtn.addEventListener('click', () => {
+    checkPhoneValidation(editTelephone, editTelephoneMessage);
+    checkPasswordValidation(editPassword, editPasswordMessage)
+});
 checkUpdateBtn.addEventListener('click', () => debounce(handleUpdate));

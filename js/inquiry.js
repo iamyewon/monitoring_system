@@ -77,11 +77,14 @@ const init = async () => {
 
 init();
 
-
 const theadRow = document.querySelector('.thead-row');
 theadRow.addEventListener("click", async (e) => {
     sortColumn = e.target.id;
     sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+
+    if(sortColumn === ''){
+        return;
+    }
 
     const data = await fetchData();
     if (!data) return;

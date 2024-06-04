@@ -10,7 +10,7 @@ const PaginationLists = document.querySelector('.pagination-lists');
 let currentPage = 1; // 조회 api에 필요 
 let sortColumn = 'id';
 let sortOrder = 'asc';
-let pageSize = 30;
+let pageSize = 50;
 
 const populatePagination = (data) => {
     const {totalCount} = data; 
@@ -27,9 +27,9 @@ const populatePagination = (data) => {
         ellipsis.textContent = '...';
         ellipsis.classList.add('pagination-list');
         return ellipsis;
-    };
+    }; 
 
-    const printPageNumber = (i) => {
+    const printPageNumber = (i) => {                                                                                                                      
         const list = document.createElement('li');
         list.textContent = i;
         list.classList.add('pagination-list');
@@ -42,7 +42,7 @@ const populatePagination = (data) => {
     lastPage.classList.add('pagination-list');
 
 
-    // 기존 페이지네이션 항목 제거
+    // 기존 페이지네이션 제거
     PaginationLists.innerHTML = '';
 
 
@@ -97,25 +97,7 @@ const lastBtn = document.querySelector('.last-btn');
 const nextBtn = document.querySelector('.next-btn');
 
 
-PaginationLists.addEventListener('click', async(e) => {  
-    const {textContent, localName} = e.target;  
-
-    if(localName !== 'li'){
-        return;
-    }
-
-    if(Number(textContent) === currentPage){
-        return;
-    }
-    
-    currentPage = Number(textContent);
-    document.querySelector('.active').classList.remove('active');
-
-    const data = await fetchData();
-    if (!data) return;
-    populatePagination(data);
-    populateTable(data);
-
+const handlePageNavigation = (data) => {
     const {totalCount} = data; 
     const totalPages = Math.ceil(totalCount / pageSize); 
 
@@ -134,59 +116,41 @@ PaginationLists.addEventListener('click', async(e) => {
         lastBtn.classList.add('hidden');
         nextBtn.classList.remove('hidden');
     }
+}
+
+const handlePage = async() => {
+    const data = await fetchData();
+    if (!data) return;
+    populatePagination(data);
+    populateTable(data);
+    handlePageNavigation(data);
+}
+
+PaginationLists.addEventListener('click', (e) => {  
+    const {textContent, localName} = e.target;  
+
+    if(localName !== 'li'){
+        return;
+    }
+
+    if(Number(textContent) === currentPage){
+        return;
+    }
+    
+    currentPage = Number(textContent);
+    document.querySelector('.active').classList.remove('active');
+
+    handlePage();
+
 })
 
 
-    prevBtn.addEventListener('click', async() => {
-        currentPage = currentPage - 1;
-        const data = await fetchData();
-        if (!data) return;
-        populatePagination(data);
-        populateTable(data);
+prevBtn.addEventListener('click', () => {
+    currentPage = currentPage - 1;
+    handlePage();
+})
 
-        const {totalCount} = data; 
-        const totalPages = Math.ceil(totalCount / pageSize); 
-    
-        if(currentPage > 1){
-            firstBtn.classList.add('hidden');
-            prevBtn.classList.remove('hidden');
-        }else{
-            firstBtn.classList.remove('hidden');
-            prevBtn.classList.add('hidden');
-        }
-    
-        if(currentPage === totalPages){
-            nextBtn.classList.add('hidden');
-            lastBtn.classList.remove('hidden');
-        }else{
-            lastBtn.classList.add('hidden');
-            nextBtn.classList.remove('hidden');
-        }
-    })
-
-    nextBtn.addEventListener('click', async() => {
-        currentPage = currentPage + 1;
-        const data = await fetchData();
-        if (!data) return;
-        populatePagination(data);
-        populateTable(data);
-
-        const {totalCount} = data; 
-        const totalPages = Math.ceil(totalCount / pageSize); 
-    
-        if(currentPage > 1){
-            firstBtn.classList.add('hidden');
-            prevBtn.classList.remove('hidden');
-        }else{
-            firstBtn.classList.remove('hidden');
-            prevBtn.classList.add('hidden');
-        }
-    
-        if(currentPage === totalPages){
-            nextBtn.classList.add('hidden');
-            lastBtn.classList.remove('hidden');
-        }else{
-            lastBtn.classList.add('hidden');
-            nextBtn.classList.remove('hidden');
-        }
-    })
+nextBtn.addEventListener('click', () => {
+    currentPage = currentPage + 1;
+    handlePage();
+})

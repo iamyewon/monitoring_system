@@ -48,8 +48,10 @@ const debounce = (func) => {
 ///////////////////////////////// delete /////////////////////////////////
 const checkDeleteBtn = document.querySelector('.check-delete-btn');
 
+// TODO : inquiry.js 에 이벤트리스너 달려있어서 문제 
 const handleDelete = (e, user) => {
-    axios.post('http://localhost:3000/deleteUser', {id: user.id})
+    console.log(e);
+    axios.delete(`http://192.168.1.51:5281/users/${user.id}`)
     .then(
         console.log("success")
     ).catch(console.error)
@@ -92,4 +94,3 @@ const resetAddPassword = () => {
 }
 
 addPw.addEventListener('click', handleAddPasswordView);
-editPw.addEventListener('click', handleEditPasswordView);

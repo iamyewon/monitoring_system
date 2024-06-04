@@ -5,8 +5,8 @@ const fetchData = () => {
         pageSize,
         currentPage
     }
-    // return axios.get("../test.json")
-    return axios.get("http://192.168.1.51:5281/users", {params})
+    return axios.get("../test.json")
+    // return axios.get("http://192.168.1.51:5281/users", {params})
     .then((response) => {
         return response.data;
     })
@@ -61,13 +61,17 @@ const populateTable = (data) => {
         deleteBtn.alt = 'delete btn';
         deleteBtn.setAttribute('data-bs-toggle', 'modal');
         deleteBtn.setAttribute('data-bs-target', '#delete-modal');
-        deleteBtn.addEventListener("click", (e) => handleDelete(e, user))
+        deleteBtn.addEventListener("click", () => deleteId = user.id)
         deleteCell.appendChild(deleteBtn);
         row.appendChild(deleteCell);
 
         tableBody.appendChild(row);
     })
 };
+
+const testFunc = () => {
+    console.log('deleteId >>', deleteId )
+}
 
 const init = async () => {
     const data = await fetchData();

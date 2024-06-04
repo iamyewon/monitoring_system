@@ -48,10 +48,11 @@ const debounce = (func) => {
 ///////////////////////////////// delete /////////////////////////////////
 const checkDeleteBtn = document.querySelector('.check-delete-btn');
 
+let deleteId;
+
 // TODO : inquiry.js 에 이벤트리스너 달려있어서 문제 
-const handleDelete = (e, user) => {
-    console.log(e);
-    axios.delete(`http://192.168.1.51:5281/users/${user.id}`)
+const handleDelete = () => {
+    axios.delete(`http://192.168.1.51:5281/users/${deleteId}`)
     .then(
         console.log("success")
     ).catch(console.error)

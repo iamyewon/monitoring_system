@@ -99,6 +99,7 @@ const nextBtn = document.querySelector('.next-btn');
 
 PaginationLists.addEventListener('click', async(e) => {  
     const {textContent, localName} = e.target;  
+
     if(localName !== 'li'){
         return;
     }
@@ -133,26 +134,59 @@ PaginationLists.addEventListener('click', async(e) => {
         lastBtn.classList.add('hidden');
         nextBtn.classList.remove('hidden');
     }
-    // TODO : < > 버튼 이벤트
 })
 
 
+    prevBtn.addEventListener('click', async() => {
+        currentPage = currentPage - 1;
+        const data = await fetchData();
+        if (!data) return;
+        populatePagination(data);
+        populateTable(data);
 
+        const {totalCount} = data; 
+        const totalPages = Math.ceil(totalCount / pageSize); 
+    
+        if(currentPage > 1){
+            firstBtn.classList.add('hidden');
+            prevBtn.classList.remove('hidden');
+        }else{
+            firstBtn.classList.remove('hidden');
+            prevBtn.classList.add('hidden');
+        }
+    
+        if(currentPage === totalPages){
+            nextBtn.classList.add('hidden');
+            lastBtn.classList.remove('hidden');
+        }else{
+            lastBtn.classList.add('hidden');
+            nextBtn.classList.remove('hidden');
+        }
+    })
 
+    nextBtn.addEventListener('click', async() => {
+        currentPage = currentPage + 1;
+        const data = await fetchData();
+        if (!data) return;
+        populatePagination(data);
+        populateTable(data);
 
-    // Add event listeners
-    // document.querySelectorAll('.pagination li').forEach(item => {
-    //     item.addEventListener('click', (e) => {
-    //         const page = e.target.getAttribute('data-page');
-    //         if (page) {
-    //             currentPage = parseInt(page);
-    //             renderPagination(currentPage, totalPages);
-    //         } else if (e.target.classList.co ntains('prev') && currentPage > 1) {
-    //             currentPage--;
-    //             renderPagination(currentPage, totalPages);
-    //         } else if (e.target.classList.contains('next') && currentPage < totalPages) {
-    //             currentPage++;
-    //             renderPagination(currentPage, totalPages);
-    //         }
-    //     });
-    // });
+        const {totalCount} = data; 
+        const totalPages = Math.ceil(totalCount / pageSize); 
+    
+        if(currentPage > 1){
+            firstBtn.classList.add('hidden');
+            prevBtn.classList.remove('hidden');
+        }else{
+            firstBtn.classList.remove('hidden');
+            prevBtn.classList.add('hidden');
+        }
+    
+        if(currentPage === totalPages){
+            nextBtn.classList.add('hidden');
+            lastBtn.classList.remove('hidden');
+        }else{
+            lastBtn.classList.add('hidden');
+            nextBtn.classList.remove('hidden');
+        }
+    })

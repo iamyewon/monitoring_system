@@ -42,10 +42,8 @@
 }
 
 /* 적용X */
-.input-box select option{
-    padding: 30px 10px 9px !important;
-    /* background-color: red; */
-}
+/* .input-box select option{} */
+
 
 .input-box select option:hover{
     background-color: #eff6ff !important;
@@ -54,6 +52,10 @@
 .input-box input:focus, .input-box select:focus{
     outline: solid 1px #7dafff;
     border: 0;
+}
+
+.role-option:hover{
+    background-color: red;
 }
 
 .message{
@@ -126,9 +128,3 @@ input:read-only:focus{
     background-color: #ec2424;
 }
 
-.show{
-    display: block;
-}
-.hidden {
-    display: none;
-}

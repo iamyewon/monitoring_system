@@ -29,15 +29,12 @@ let isValidUserName = false;
 let isValidTelephone = false;
 let isValidPassword = false; 
 
-
+let isLoading = false;
 
 ///////////////////////////////// debounce /////////////////////////////////
 let debounceTimer;
 
 const debounce = (func) => {
-
-    clearTimeout(debounceTimer);
-
     debounceTimer = setTimeout(() => {
         func();
     }, 300);
@@ -50,12 +47,13 @@ const checkDeleteBtn = document.querySelector('.check-delete-btn');
 
 let deleteId;
 
-// TODO : inquiry.js 에 이벤트리스너 달려있어서 문제 
 const handleDelete = () => {
+    displayLoading();
     axios.delete(`http://192.168.1.51:5281/users/${deleteId}`)
     .then(
         console.log("success")
     ).catch(console.error)
+    .finally(hideLoading)
 }
 checkDeleteBtn.addEventListener("click",  () => debounce(handleDelete));
 
@@ -74,24 +72,25 @@ const handleAddPasswordView = () => {
     addPassword.type=`${isPasswordVisible ? "text" : "password"}`;
 }
 
-const handleEditPasswordView = () => {
-    isPasswordVisible = !isPasswordVisible
-    editPw.src = `images/pw_${isPasswordVisible ? "on" : "off"}.png`
-
-    editPassword.type=`${isPasswordVisible ? "text" : "password"}`;
-}
-
-const resetEditPassword = () => {
-    isPasswordVisible = false
-    editPw.src = `images/pw_off.png`
-    editPassword.type=`password`;
-}
-
 /* TODO : add팝업 onclick에 달아주기 */
 const resetAddPassword = () => {
     isPasswordVisible = false
     addPw.src = `images/pw_off.png`
     addPassword.type=`password`;
 }
+
+// const handleEditPasswordView = () => {
+//     isPasswordVisible = !isPasswordVisible
+//     editPw.src = `images/pw_${isPasswordVisible ? "on" : "off"}.png`
+
+//     editPassword.type=`${isPasswordVisible ? "text" : "password"}`;
+// }
+
+// const resetEditPassword = () => {
+//     isPasswordVisible = false
+//     editPw.src = `images/pw_off.png`
+//     editPassword.type=`password`;
+// }
+
 
 addPw.addEventListener('click', handleAddPasswordView);

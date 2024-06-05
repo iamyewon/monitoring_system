@@ -31,7 +31,6 @@
                         <th id="name">User Name</th>
                         <th id="phone">Telephone</th>
                         <th id="role">Role</th>
-                        <!-- <th>Password</th> -->
                         <th> </th>
                         <th> </th>
                     </tr>
@@ -47,7 +46,6 @@
                     <option value="300">300</option>
                 </select>
                 <nav class="pagination">
-                    <!-- currentPage = 1 이면 보이게/안보이게 -->
                     <a href="javascript:void(0)">
                         <img class="first-btn pagination-prev" src="/images/first_btn.png" alt="first btn" >
                         <img class="prev-btn pagination-prev hidden" src="/images/prev_btn.png" alt="prev btn btn" >
@@ -55,7 +53,6 @@
                     <ul class="pagination-lists">                
             
                    </ul> 
-                    <!-- currentPage = itemsPerView/totalCount 반올림. 이면 보이게/안보이게 -->
                     <a href="javascript:void(0)">
                         <img class="last-btn pagination-next hidden" src="/images/last_btn.png" alt="first btn" >
                         <img class="next-btn pagination-next" src="/images/next_btn.png" alt="prev btn btn" >
@@ -71,7 +68,6 @@
             <div class="modal-content add-modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="add-modal-title">ADD</h5>
-                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <div class="modal-body">
                     <form>
@@ -93,16 +89,15 @@
                         <div class="input-box">
                             <label for="add-role">Role</label>
                             <select name="role" id="add-role">
-                                <option value="super">SUPER</option>
-                                <option value="admin">ADMIN</option>
-                                <option value="user">USER</option>
+                                <option value="super" class="role-option">SUPER</option>
+                                <option value="admin" class="role-option">ADMIN</option>
+                                <option value="user" class="role-option">USER</option>
                             </select>
                         </div>
                         <div class="input-box">
                             <label for="add-password">Password</label>
                             <div class="password-wrap">
                                 <input type="password" id="add-password" name="password" autocomplete="off">
-                                <!-- <img src="images/pw_on.png" class="password-icon password-on" alt="비밀번호 보기"> -->
                                 <img src="images/pw_off.png" class="password-icon add-pw" alt="비밀번호 보기">
                             </div>
                             <p class="add-password-message message hidden"></p>
@@ -123,7 +118,6 @@
             <div class="modal-content edit-modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="edit-modal-title">Edit</h5>
-                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <div class="modal-body">
                     <form>
@@ -148,17 +142,9 @@
                                 <option value="user" selected>USER</option>
                             </select>
                         </div>
-                        <!-- <div class="input-box">
-                            <label for="edit-password">Password</label>
-                            <div class="password-wrap">
-                                <input type="password" id="edit-password" name="password" autocomplete="off">
-                                <img src="images/pw_off.png" class="password-icon edit-pw" alt="비밀번호 숨기기">
-                            </div>
-                            <p class="edit-password-message message"></p>
-                        </div>
                         <div class="hidden">
                             <input type="text" name="id" id="edit-id">
-                        </div> -->
+                        </div> 
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -181,18 +167,23 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                    <button type="button" class="btn btn-danger check-delete-btn" data-bs-dismiss="modal" onclick='testFunc(event)'>DELETE</button>
+                    <button type="button" class="btn btn-danger check-delete-btn" data-bs-dismiss="modal">DELETE</button>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <div class="loading-background hidden">
+        <div class="loader"></div> 
+    </div>
+
+    <script src="js/loading.js"></script>
     <script src="js/index.js"></script>
     <script src="js/validationUtils.js"></script>
     <script src="js/edit.js"></script>
     <script src="js/add.js"></script>
-    <!-- <script src="js/inquiry.js"></script> -->
     <script src="js/pagination.js"></script>
     <script src="js/inquiry.js"></script>
-    <!-- apis 로 묶어야 할지 -->
 </body>
 </html>

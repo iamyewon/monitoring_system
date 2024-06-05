@@ -5,15 +5,21 @@ const fetchData = () => {
         pageSize,
         currentPage
     }
-    return axios.get("../test.json")
-    // return axios.get("http://192.168.1.51:5281/users", {params})
+
+    displayLoading();
+    // return axios.get("../test.json")
+    return axios.get("http://192.168.1.51:5281/users", {params})
     .then((response) => {
         return response.data;
     })
     // .catch(()=> alert('잘못된 요청!'))
+    .finally(hideLoading)
 }
 
 
+function formatPhoneNumber(phoneNumber) {
+    return phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+}
 
 const populateTable = (data) => {
     tableBody.innerHTML = '';
@@ -34,7 +40,7 @@ const populateTable = (data) => {
         row.appendChild(userNameCell);
 
         const telephoneCell = document.createElement('td');
-        telephoneCell.textContent = user.phone;
+        telephoneCell.textContent = formatPhoneNumber(user.phone);
         row.appendChild(telephoneCell);
 
         const roleCell = document.createElement('td');
@@ -68,10 +74,6 @@ const populateTable = (data) => {
         tableBody.appendChild(row);
     })
 };
-
-const testFunc = () => {
-    console.log('deleteId >>', deleteId )
-}
 
 const init = async () => {
     const data = await fetchData();

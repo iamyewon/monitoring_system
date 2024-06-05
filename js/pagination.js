@@ -26,6 +26,8 @@ const populatePagination = (data) => {
         const ellipsis = document.createElement('li');
         ellipsis.textContent = '...';
         ellipsis.classList.add('pagination-list');
+        ellipsis.style.pointerEvents = 'none';
+        // ellipsis.setAttribute('aria-disabled', 'true');
         return ellipsis;
     }; 
 
@@ -140,17 +142,24 @@ PaginationLists.addEventListener('click', (e) => {
     currentPage = Number(textContent);
     document.querySelector('.active').classList.remove('active');
 
+    // debounceTimer && clearTimeout(debounceTimer);
+    // debounce(handlePage);
     handlePage();
-
 })
 
 
 prevBtn.addEventListener('click', () => {
     currentPage = currentPage - 1;
+    
+    // debounceTimer && clearTimeout(debounceTimer);
+    // debounce(handlePage);
     handlePage();
 })
 
 nextBtn.addEventListener('click', () => {
     currentPage = currentPage + 1;
+    
+    // debounceTimer && clearTimeout(debounceTimer);
+    // debounce(handlePage);
     handlePage();
 })

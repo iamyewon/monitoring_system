@@ -1,5 +1,3 @@
-const loadingBackground = document.querySelector('.loading-background');
-
 /**
  * 로딩 화면 보이도록 하는 클래스를 추가하는 함수 
  * @author 웹팀 김예원 

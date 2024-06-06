@@ -6,16 +6,14 @@ const populateEditModal = (e, user) => {
     editId.value = user.id;
 }
 
+// TODO : index 
 editTelephone.addEventListener('blur', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
 
 const handleUpdate = () => {
-    if(isValidTelephone){
-    isValidForm = true;
-    }
-
-    if(!isValidForm){
+    if(!isValidTelephone){
         return;
     }
+
     displayLoading();
 
     const params = {
@@ -28,11 +26,9 @@ const handleUpdate = () => {
     }
 
     axios.put(`http://192.168.1.51:5281/users/${params.id}`, params)
-    .then((response) => {
-        const modalElement = document.querySelector('#edit-modal'); // 모달의 id를 정확히 지정해주세요
-        const modalInstance = bootstrap.Modal.getInstance(modalElement);
-        modalInstance.hide();
-        window.location.reload(); // 되긴하는데,, 
+    .then( async(response) => {
+        closeModal('#edit-modal')
+        populateTable(await fetchData());
     })
     .catch(console.error)
     .finally(hideLoading)
@@ -41,4 +37,7 @@ const handleUpdate = () => {
 checkUpdateBtn.addEventListener('click', () => {
     checkPhoneValidation(editTelephone, editTelephoneMessage);
 });
-checkUpdateBtn.addEventListener('click', () => debounce(handleUpdate));
+checkUpdateBtn.addEventListener('click', () => {
+    debounceTimer && clearTimeout(debounceTimer);
+    debounce(handleUpdate);
+});

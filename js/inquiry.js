@@ -12,12 +12,11 @@ const fetchData = () => {
     .then((response) => {
         return response.data;
     })
-    // .catch(()=> alert('잘못된 요청!'))
+    .catch((data)=> console.log(data))
     .finally(hideLoading)
 }
 
-
-function formatPhoneNumber(phoneNumber) {
+const formatPhoneNumber = (phoneNumber) => {
     return phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
 }
 
@@ -75,35 +74,42 @@ const populateTable = (data) => {
     })
 };
 
-const init = async () => {
+const loadAndDisplayData = async() => {
     const data = await fetchData();
+    if (!data) return;
     populatePagination(data);
     populateTable(data);
 }
 
-init();
+loadAndDisplayData();
 
-const theadRow = document.querySelector('.thead-row');
+// TODO : index로 
 theadRow.addEventListener("click", async (e) => {
-    sortColumn = e.target.id;
-    sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-
-    if(sortColumn === ''){
-        return;
-    }
-
-    const data = await fetchData();
-    if (!data) return;
-    populatePagination(data);
-    populateTable(data);
+    debounceTimer && clearTimeout(debounceTimer);
+    debounce(() => {
+        sortColumn = e.target.id;
+        sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    
+        if(sortColumn === ''){
+            return;
+        }
+    
+        loadAndDisplayData();
+    })
 })
 
-itemsPerView.addEventListener("change", async (e) => {
-    pageSize = Number(e.target.value);
-    currentPage = 1;
+itemsPerView.addEventListener("change", (e) => {
+    debounceTimer && clearTimeout(debounceTimer);
+    debounce(async() => {
+        pageSize = Number(e.target.value);
+        currentPage = 1;
 
-    const data = await fetchData();
-    if (!data) return;
-    populatePagination(data);
-    populateTable(data);
+        loadAndDisplayData();
+    });
 })
+
+// const showError= (errorCode) =>{
+//     switch(errorCode) {
+//         case '누락'
+//     }
+//}

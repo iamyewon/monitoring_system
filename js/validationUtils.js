@@ -5,11 +5,16 @@ const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 const phoneRegex = /^010-?\d{4}-?\d{4}$/; // 하이픈 허용 
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*]).{8,16}$/;
 
+const showAlertMeesage = (messageTag, message) => {
+    messageTag.textContent = message;
+    messageTag.classList.remove('hidden');
 
+}
+
+// TODO : showAlertMeesage 적용 
 const checkEmailValidation = (inputTag, messageTag) => {
     if(inputTag.value.trim() === ''){
-        messageTag.textContent = 'Please enter a email';
-        messageTag.classList.remove('hidden');
+        showAlertMeesage(messageTag,'Please enter a email');
         isValidEmail = false;
     }else if(!emailRegex.test(inputTag.value)){
         messageTag.textContent = 'Please enter a valid email';

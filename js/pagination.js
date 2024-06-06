@@ -15,21 +15,16 @@ let pageSize = 50;
 const populatePagination = (data) => {
     const {totalCount} = data; 
     const totalPages = Math.ceil(totalCount / pageSize); 
-    const maxVisiblePages = 7; 
-
-    const firstPage = document.createElement('li');
-    firstPage.textContent = 1;
-    firstPage.classList.add('pagination-list');
-    currentPage === 1 && firstPage.classList.add('active');
+    const maxVisiblePages = 7;
+    // TODO : 상수파일에 정리  
 
     const createEllipsis = () => {
         const ellipsis = document.createElement('li');
         ellipsis.textContent = '...';
         ellipsis.classList.add('pagination-list');
         ellipsis.style.pointerEvents = 'none';
-        // ellipsis.setAttribute('aria-disabled', 'true');
         return ellipsis;
-    }; 
+    };
 
     const printPageNumber = (i) => {                                                                                                                      
         const list = document.createElement('li');
@@ -39,57 +34,42 @@ const populatePagination = (data) => {
         PaginationLists.appendChild(list);
     }
 
-    const lastPage = document.createElement('li');
-    lastPage.textContent = totalPages;
-    lastPage.classList.add('pagination-list');
-
-
-    // 기존 페이지네이션 제거
     PaginationLists.innerHTML = '';
 
-
-    // 1. totalPage가 maxVisiblePage(7)보다 작을 때 
     if(totalPages <= maxVisiblePages){
         for(let i = 1; i <= totalPages; i++){
             printPageNumber(i);
         }
+        return;
+    }  
 
-    // 2. totalPage가 maxVisiblePage(7)보다 클 때
-    }else{
-        // 현재 페이지가 4 이하 일때 -> 1, 2, 3, 4, 5, ..., totalPage 
-        if (currentPage <= 4) {
-            for (let i = 1; i <= 5; i++) {
-                printPageNumber(i);
-            }
-            
-            PaginationLists.appendChild(createEllipsis());
-            PaginationLists.appendChild(lastPage);
+    if (currentPage <= 4) {
+        for (let i = 1; i <= 5; i++) {
+            printPageNumber(i);
+        }
+        
+        PaginationLists.appendChild(createEllipsis());
+        printPageNumber(totalPages);
 
-        } else if (currentPage >= totalPages - 3) {         
-            // 현재 페이지가 토탈페이지보다 3 작은수 이상일 때 
-            // => 1, ..., totalPage-4, totalPage-3, totalPage-2, totalPage-1, totalPage
+    } else if (currentPage >= totalPages - 3) {         
+       printPageNumber(1);
+        PaginationLists.appendChild(createEllipsis());
+        
+        for (let i = totalPages - 4; i <= totalPages; i++) {
+            printPageNumber(i);
+        }
+        
+    } else {
+        printPageNumber(1);
+        PaginationLists.appendChild(createEllipsis());
 
-            PaginationLists.appendChild(firstPage);
-            PaginationLists.appendChild(createEllipsis());
-            
-            for (let i = totalPages - 4; i <= totalPages; i++) {
-                printPageNumber(i);
-            }
-            
-        } else {
-            // 현재 페이지가 1+4 이상, totalPage-4 이하 일 때 
-            PaginationLists.appendChild(firstPage);
-            PaginationLists.appendChild(createEllipsis());
-
-            for (let i = currentPage-1; i <= currentPage+1; i++) {
-                printPageNumber(i);
-            }
-
-            PaginationLists.appendChild(createEllipsis());
-            PaginationLists.appendChild(lastPage);
+        for (let i = currentPage-1; i <= currentPage+1; i++) {
+            printPageNumber(i);
         }
 
-    }    
+        PaginationLists.appendChild(createEllipsis());
+        printPageNumber(totalPages);
+    }
 }
 
 
@@ -98,26 +78,32 @@ const prevBtn = document.querySelector('.prev-btn');
 const lastBtn = document.querySelector('.last-btn');
 const nextBtn = document.querySelector('.next-btn');
 
+const ablePrevBtn = () => {
+    firstBtn.classList.add('hidden');
+    prevBtn.classList.remove('hidden');
+}
+
+const disablePrevBtn = () => {
+    firstBtn.classList.remove('hidden');
+    prevBtn.classList.add('hidden');
+}
+
+const ableNextBtn = () => {
+    nextBtn.classList.remove('hidden');
+    lastBtn.classList.add('hidden');
+}
+
+const disableNextBtn = () => {
+    nextBtn.classList.add('hidden');
+    lastBtn.classList.remove('hidden');
+}
 
 const handlePageNavigation = (data) => {
     const {totalCount} = data; 
     const totalPages = Math.ceil(totalCount / pageSize); 
 
-    if(currentPage > 1){
-        firstBtn.classList.add('hidden');
-        prevBtn.classList.remove('hidden');
-    }else{
-        firstBtn.classList.remove('hidden');
-        prevBtn.classList.add('hidden');
-    }
-
-    if(currentPage === totalPages){
-        nextBtn.classList.add('hidden');
-        lastBtn.classList.remove('hidden');
-    }else{
-        lastBtn.classList.add('hidden');
-        nextBtn.classList.remove('hidden');
-    }
+    currentPage === 1 ? disablePrevBtn() : ablePrevBtn();
+    currentPage === totalPages ? disableNextBtn() : ableNextBtn();
 }
 
 const handlePage = async() => {

@@ -28,6 +28,14 @@ const addBtn = document.querySelector('.add-btn');
 const addPw = document.querySelector('.add-pw');
 const editPw = document.querySelector('.edit-pw');
 
+const itemsPerView = document.querySelector('.items-per-view');
+const PaginationLists = document.querySelector('.pagination-lists');
+const firstBtn = document.querySelector('.first-btn');
+const prevBtn = document.querySelector('.prev-btn');
+const lastBtn = document.querySelector('.last-btn');
+const nextBtn = document.querySelector('.next-btn');
+
+
 const loadingBackground = document.querySelector('.loading-background');
 
 let isValidEmail = false;
@@ -38,10 +46,29 @@ let isValidPassword = false;
 let isLoading = false;
 
 
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', () => {
     addPw.addEventListener('click', handleAddPasswordView);
     addEmail.addEventListener('blur', () => checkEmailValidation(addEmail, addEmailMessage));
     addTelephone.addEventListener('blur', () => checkPhoneValidation(addTelephone, addTelephoneMessage));
     addPassword.addEventListener('blur', () => checkPasswordValidation(addPassword, addPasswordMessage));
     addBtn.addEventListener("click", clickAddBtn);
-}
+
+    checkDeleteBtn.addEventListener("click",  () => {
+        debounceTimer && clearTimeout(debounceTimer);
+        debounce(handleDelete)
+    });
+
+    editTelephone.addEventListener('blur', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
+
+    checkUpdateBtn.addEventListener('click', () => {
+        checkPhoneValidation(editTelephone, editTelephoneMessage);
+    });
+
+    checkUpdateBtn.addEventListener('click', () => {
+        debounceTimer && clearTimeout(debounceTimer);
+        debounce(handleUpdate);
+    });
+   
+    theadRow.addEventListener("click", sortAndLoadData);
+    itemsPerView.addEventListener("change", updatePageSizeAndLoadData);
+})

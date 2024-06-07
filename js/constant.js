@@ -6,3 +6,5 @@ const MODAL_TYPE = {
     ADD: 'ADD',
     EDIT: 'EDIT'
 }
+
+const MAX_VISIBLE_PAGES = 7; 

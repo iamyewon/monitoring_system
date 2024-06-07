@@ -83,8 +83,8 @@ const loadAndDisplayData = async() => {
 
 loadAndDisplayData();
 
-// TODO : index로 
-theadRow.addEventListener("click", async (e) => {
+
+const sortAndLoadData = (e) => {
     debounceTimer && clearTimeout(debounceTimer);
     debounce(() => {
         sortColumn = e.target.id;
@@ -96,9 +96,9 @@ theadRow.addEventListener("click", async (e) => {
     
         loadAndDisplayData();
     })
-})
+}
 
-itemsPerView.addEventListener("change", (e) => {
+const updatePageSizeAndLoadData = (e) => {
     debounceTimer && clearTimeout(debounceTimer);
     debounce(async() => {
         pageSize = Number(e.target.value);
@@ -106,7 +106,7 @@ itemsPerView.addEventListener("change", (e) => {
 
         loadAndDisplayData();
     });
-})
+}
 
 // const showError= (errorCode) =>{
 //     switch(errorCode) {

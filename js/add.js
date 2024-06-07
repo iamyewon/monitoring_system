@@ -19,7 +19,7 @@ const addUser = () => {
     }).catch((error) => {
         const { code } = error.response.data;
         if(code === ERROR_CODE.EC1004){
-            addEmailMessage.textContent = "이미 존재하는 이메일";
+            addEmailMessage.textContent = "This email already exists.";
             addEmailMessage.classList.remove('hidden');
         }
     })

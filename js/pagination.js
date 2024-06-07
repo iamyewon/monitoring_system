@@ -1,13 +1,4 @@
-///////////////////////////////// pagination /////////////////////////////////
-// let currentPage = 1;
-// let totalPages;
-// let totalCount;
-// let pagePerView = 50;
-
-const itemsPerView = document.querySelector('.items-per-view');
-const PaginationLists = document.querySelector('.pagination-lists');
-
-let currentPage = 1; // 조회 api에 필요 
+let currentPage = 1;
 let sortColumn = 'id';
 let sortOrder = 'asc';
 let pageSize = 50;
@@ -15,8 +6,6 @@ let pageSize = 50;
 const populatePagination = (data) => {
     const {totalCount} = data; 
     const totalPages = Math.ceil(totalCount / pageSize); 
-    const maxVisiblePages = 7;
-    // TODO : 상수파일에 정리  
 
     const createEllipsis = () => {
         const ellipsis = document.createElement('li');
@@ -36,7 +25,7 @@ const populatePagination = (data) => {
 
     PaginationLists.innerHTML = '';
 
-    if(totalPages <= maxVisiblePages){
+    if(totalPages <= MAX_VISIBLE_PAGES){
         for(let i = 1; i <= totalPages; i++){
             printPageNumber(i);
         }
@@ -71,12 +60,6 @@ const populatePagination = (data) => {
         printPageNumber(totalPages);
     }
 }
-
-
-const firstBtn = document.querySelector('.first-btn');
-const prevBtn = document.querySelector('.prev-btn');
-const lastBtn = document.querySelector('.last-btn');
-const nextBtn = document.querySelector('.next-btn');
 
 const ablePrevBtn = () => {
     firstBtn.classList.add('hidden');

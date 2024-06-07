@@ -11,8 +11,3 @@ const handleDelete = () => {
     .finally(hideLoading)
 }
 
-// TODO : index로 
-checkDeleteBtn.addEventListener("click",  () => {
-    debounceTimer && clearTimeout(debounceTimer);
-    debounce(handleDelete)
-});

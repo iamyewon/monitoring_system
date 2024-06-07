@@ -1,13 +1,10 @@
-const populateEditModal = (e, user) => {
+const populateEditModal = (user) => {
     editUsername.value = user.name;
     editEmail.value = user.email;
     editTelephone.value = user.phone;
     editRole.value = user.role.toLowerCase();
     editId.value = user.id;
 }
-
-// TODO : index 
-editTelephone.addEventListener('blur', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
 
 const handleUpdate = () => {
     if(!isValidTelephone){
@@ -34,10 +31,3 @@ const handleUpdate = () => {
     .finally(hideLoading)
 }
 
-checkUpdateBtn.addEventListener('click', () => {
-    checkPhoneValidation(editTelephone, editTelephoneMessage);
-});
-checkUpdateBtn.addEventListener('click', () => {
-    debounceTimer && clearTimeout(debounceTimer);
-    debounce(handleUpdate);
-});

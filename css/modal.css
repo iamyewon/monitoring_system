@@ -41,10 +41,6 @@
     padding: 12px 24px 11px 10px;
 }
 
-/* 적용X */
-/* .input-box select option{} */
-
-
 .input-box select option:hover{
     background-color: #eff6ff !important;
 }
@@ -54,8 +50,12 @@
     border: 0;
 }
 
-.role-option:hover{
-    background-color: red;
+.input-alert{
+    border: 1px solid #ff4040 !important;
+}
+
+.input-alert:focus{
+    outline: none !important;
 }
 
 .message{

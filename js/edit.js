@@ -22,7 +22,7 @@ const handleUpdate = () => {
         password: 'example01!',
     }
 
-    axios.put(`http://192.168.1.51:5281/users/${params.id}`, params)
+    axios.put(`http://192.168.1.51:5281/users/`, params)
     .then( async(response) => {
         closeModal('#edit-modal')
         populateTable(await fetchData());

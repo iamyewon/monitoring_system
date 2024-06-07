@@ -1,3 +1,12 @@
+// window.onload = () => {
+//     addPw.addEventListener('click', handleAddPasswordView);
+//     addEmail.addEventListener('blur', () => checkEmailValidation(addEmail, addEmailMessage));
+//     addTelephone.addEventListener('blur', () => checkPhoneValidation(addTelephone, addTelephoneMessage));
+//     addPassword.addEventListener('blur', () => checkPasswordValidation(addPassword, addPasswordMessage));
+//     addBtn.addEventListener("click", clickAddBtn);
+// }
+
+
 const addUser = () => {  
     if(!isValidEmail || !isValidTelephone || !isValidPassword){
         return
@@ -15,8 +24,11 @@ const addUser = () => {
     axios.post('http://192.168.1.51:5281/users/', params)
     .then(async() => {
         closeModal('#add-modal');
+        // return fetchData();
         populateTable(await fetchData());
-    }).catch((error) => {
+    })
+    // .then(res => console.log(res))
+    .catch((error) => {
         const { code } = error.response.data;
         if(code === ERROR_CODE.EC1004){
             addEmailMessage.textContent = "This email already exists.";

@@ -8,6 +8,8 @@ const fetchData = () => {
 
     displayLoading();
     // return axios.get("../test.json")
+
+    //TODO : 상수처럼 
     return axios.get("http://192.168.1.51:5281/users", {params})
     .then((response) => {
         return response.data;
@@ -54,7 +56,7 @@ const populateTable = (data) => {
         editBtn.alt = 'edit btn';
         editBtn.setAttribute('data-bs-toggle', 'modal');
         editBtn.setAttribute('data-bs-target', '#edit-modal');
-        editBtn.addEventListener("click", (e) => populateEditModal(e, user))
+        editBtn.addEventListener("click", () => populateEditModal(user))
         editCell.appendChild(editBtn);
         row.appendChild(editCell);
 
@@ -80,8 +82,6 @@ const loadAndDisplayData = async() => {
     populatePagination(data);
     populateTable(data);
 }
-
-loadAndDisplayData();
 
 
 const sortAndLoadData = (e) => {

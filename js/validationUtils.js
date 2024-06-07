@@ -4,52 +4,57 @@ const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 // const phoneRegex = /^(01[016789]-?\d{3,4}-?\d{4}|0\d{1,2}-\d{3,4}-\d{4})$/; // 핸드폰, 지역번호 모두 허용 
 const phoneRegex = /^010-?\d{4}-?\d{4}$/; // 하이픈 허용 
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*]).{8,16}$/;
+// TODO : 정책정해지지않아서 ~이렇게 썼다 설명
 
-const showAlertMessage = (messageTag, message) => {
+const showAlertMessage = (inputTag, messageTag, message) => {
     messageTag.textContent = message;
     messageTag.classList.remove('hidden');
+    inputTag.classList.add('input-alert');
 }
 
-const hiddenAlertMessage = (messageTag) => {
+const hiddenAlertMessage = (inputTag, messageTag) => {
     messageTag.textContent = '';
     messageTag.classList.add('hidden');
+    inputTag.classList.remove('input-alert');
 }
 
+
+// TODO : 매개변수가 길어지면 객체로 묶는다. 
 const checkEmailValidation = (inputTag, messageTag) => {
     if(inputTag.value.trim() === ''){
-        showAlertMessage(messageTag,'Please enter a email');
+        showAlertMessage(inputTag, messageTag,'Please enter a email');
         isValidEmail = false;
     }else if(!emailRegex.test(inputTag.value)){
-        showAlertMessage(messageTag,'Please enter a valid email');
+        showAlertMessage(inputTag, messageTag,'Please enter a valid email');
         isValidEmail = false;
     }else{
-        hiddenAlertMessage(messageTag);
+        hiddenAlertMessage(inputTag, messageTag);
         isValidEmail = true;
     }
 }
 
 const checkPhoneValidation = (inputTag, messageTag) => {
     if(inputTag.value.trim() === ''){
-        showAlertMessage(messageTag,'Please enter a phone');
+        showAlertMessage(inputTag, messageTag,'Please enter a phone');
         isValidTelephone = false;
     }else if(!phoneRegex.test(inputTag.value)){
-        showAlertMessage(messageTag,'Please enter a valid phone');
+        showAlertMessage(inputTag, messageTag,'Please enter a valid phone');
         isValidTelephone = false;
     }else{
-        hiddenAlertMessage(messageTag);
+        hiddenAlertMessage(inputTag, messageTag);
         isValidTelephone = true;
     }
 }
 
 const checkPasswordValidation = (inputTag, messageTag) => {
     if(inputTag.value.trim() === ''){
-        showAlertMessage(messageTag,'Please enter a password');
+        showAlertMessage(inputTag, messageTag,'Please enter a password');
         isValidPassword = false;
     }else if(!passwordRegex.test(inputTag.value)){
-        showAlertMessage(messageTag,'Please enter a valid password');
+        showAlertMessage(inputTag, messageTag,'Please enter a valid password');
         isValidPassword = false;
     }else{
-        hiddenAlertMessage(messageTag);
+        hiddenAlertMessage(inputTag, messageTag);
         isValidPassword = true;
     }
 }

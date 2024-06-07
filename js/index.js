@@ -1,3 +1,6 @@
+const addBtnMark = document.querySelector('.add-btn-mark');
+const addBtnText = document.querySelector('.add-btn-text');
+
 const theadRow = document.querySelector('.thead-row');
 const tableBody = document.querySelector('.table-body');
 
@@ -35,7 +38,6 @@ const prevBtn = document.querySelector('.prev-btn');
 const lastBtn = document.querySelector('.last-btn');
 const nextBtn = document.querySelector('.next-btn');
 
-
 const loadingBackground = document.querySelector('.loading-background');
 
 let isValidEmail = false;
@@ -45,8 +47,14 @@ let isValidPassword = false;
 
 let isLoading = false;
 
+window.onload = () => {
 
-document.addEventListener('DOMContentLoaded', () => {
+    // 문맥 상 취소를 할 때 초기화하는게 맞음 
+    // 빈화면-> 취소 막기 
+    addBtnMark.addEventListener('click', resetModal);
+    addBtnText.addEventListener('click', resetModal);
+
+    // TODO : modal로 -> 옮기니까 안되는뎅? 
     addPw.addEventListener('click', handleAddPasswordView);
     addEmail.addEventListener('blur', () => checkEmailValidation(addEmail, addEmailMessage));
     addTelephone.addEventListener('blur', () => checkPhoneValidation(addTelephone, addTelephoneMessage));
@@ -59,10 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     editTelephone.addEventListener('blur', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
-
-    checkUpdateBtn.addEventListener('click', () => {
-        checkPhoneValidation(editTelephone, editTelephoneMessage);
-    });
+    checkUpdateBtn.addEventListener('click', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
 
     checkUpdateBtn.addEventListener('click', () => {
         debounceTimer && clearTimeout(debounceTimer);
@@ -71,4 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
    
     theadRow.addEventListener("click", sortAndLoadData);
     itemsPerView.addEventListener("change", updatePageSizeAndLoadData);
-})
+
+    // TODO : 개발자 의도에 맞게 핵심이 되는 함수는 index에서 
+    loadAndDisplayData();
+}

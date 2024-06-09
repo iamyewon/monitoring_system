@@ -105,30 +105,21 @@ PaginationLists.addEventListener('click', (e) => {
     }
 
     if(Number(textContent) === currentPage){
-        return;
+        return; 
     }
     
     currentPage = Number(textContent);
     document.querySelector('.active').classList.remove('active');
-
-    // debounceTimer && clearTimeout(debounceTimer);
-    // debounce(handlePage);
     handlePage();
 })
 
 
 prevBtn.addEventListener('click', () => {
     currentPage = currentPage - 1;
-    
-    // debounceTimer && clearTimeout(debounceTimer);
-    // debounce(handlePage);
     handlePage();
 })
 
 nextBtn.addEventListener('click', () => {
     currentPage = currentPage + 1;
-    
-    // debounceTimer && clearTimeout(debounceTimer);
-    // debounce(handlePage);
     handlePage();
 })

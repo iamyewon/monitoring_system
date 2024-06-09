@@ -9,8 +9,7 @@ const fetchData = () => {
     displayLoading();
     // return axios.get("../test.json")
 
-    //TODO : 상수처럼 
-    return axios.get("http://192.168.1.51:5281/users", {params})
+    return findUsers(params)
     .then((response) => {
         return response.data;
     })

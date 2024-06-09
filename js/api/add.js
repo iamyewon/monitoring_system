@@ -21,13 +21,14 @@ const addUser = () => {
         role: addRole.value,
         password: CryptoJS.SHA256(addPassword.value).toString()
     }
-    axios.post('http://192.168.1.51:5281/users/', params)
-    .then(async() => {
+    updateUser(params)
+    .then(() => {
         closeModal('#add-modal');
-        // return fetchData();
-        populateTable(await fetchData());
+        return fetchData();
     })
-    // .then(res => console.log(res))
+    .then((res) => {
+        populateTable(res);
+    })
     .catch((error) => {
         const { code } = error.response.data;
         if(code === ERROR_CODE.EC1004){

@@ -48,13 +48,7 @@ let isValidPassword = false;
 let isLoading = false;
 
 window.onload = () => {
-
-    // 문맥 상 취소를 할 때 초기화하는게 맞음 
-    // 빈화면-> 취소 막기 
-    addBtnMark.addEventListener('click', resetModal);
-    addBtnText.addEventListener('click', resetModal);
-
-    // TODO : modal로 -> 옮기니까 안되는뎅? 
+    // TODO : modal로 
     addPw.addEventListener('click', handleAddPasswordView);
     addEmail.addEventListener('blur', () => checkEmailValidation(addEmail, addEmailMessage));
     addTelephone.addEventListener('blur', () => checkPhoneValidation(addTelephone, addTelephoneMessage));
@@ -77,6 +71,6 @@ window.onload = () => {
     theadRow.addEventListener("click", sortAndLoadData);
     itemsPerView.addEventListener("change", updatePageSizeAndLoadData);
 
-    // TODO : 개발자 의도에 맞게 핵심이 되는 함수는 index에서 
+    // TODO : 개발자 의도가 보이도록 핵심이 되는 메인 실행 함수는 index에서 
     loadAndDisplayData();
 }

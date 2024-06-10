@@ -4,38 +4,57 @@ const closeModal = (id) => {
     modalInstance.hide();
 }
 
-const resetModal = () => {
+const resetAddModal = () => {
     addUsername.value = '';
     addEmail.value = '';
     addTelephone.value = '';
     addRole.value = 'user';
     addPassword.value = '';
 
-    hiddenAlertMessage(addEmailMessage);
-    hiddenAlertMessage(addPasswordMessage);
-    hiddenAlertMessage(addTelephoneMessage);
+    hiddenAlertMessage(addEmail, addEmailMessage);
+    hiddenAlertMessage(addTelephone, addTelephoneMessage);
+    hiddenAlertMessage(addPassword, addPasswordMessage);
 }
 
+const resetEditModal = () => {
+    editUsername.value = '';
+    editEmail.value = '';
+    editTelephone.value = '';
+    editRole.value = 'user';
+    // editPassword.value = '';
 
-// TODO 모달 백그라운드 닫힘 막고 / 모달 닫히는 이벤트(혹은 취소 버튼?)에 reset 달아주기 
-const addModal = document.querySelector('#add-modal');
+    hiddenAlertMessage(addEmail, addEmailMessage);
+    hiddenAlertMessage(addTelephone, addTelephoneMessage);
+    // hiddenAlertMessage(addPassword, addPasswordMessage);
+}
 
-const modalInstance = new bootstrap.Modal(addModal, {
-    backdrop: 'static',
-    keyboard: false
-});
-  
-addBtnMark.addEventListener('click', function() {
-    modalInstance.show();
-});
+// TODO 모달 백그라운드 닫힘 막기
+const setModal = (modalId, button, resetFunc) => {
+    const modalElement = document.querySelector(modalId);
+    const btnElement = document.querySelector(button);
 
-addModal.addEventListener('click', (event) => {
-    if (event.target === addModal) {
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-    }
-});
+    const modalInstance = new bootstrap.Modal(modalElement, {
+        backdrop: 'static',
+        keyboard: false
+    });
+      
+    // btnElement.addEventListener('click', function() {
+    //     modalInstance.show();
+    // });
+    
+    modalElement.addEventListener('click', (event) => {
+        if (event.target === modalElement) {
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+        }
+    });
+    
+    modalElement.addEventListener('hide.bs.modal', () => {
+        resetFunc();
+    })
+}
 
-addModal.addEventListener('hide.bs.modal', () => {
-    console.log("닫혔다");
-})
+// window.addEventListener('load', () => {
+    setModal('#add-modal', '.add-btn-mark', resetAddModal);
+    // setModal('#edit-modal', '.edit-btn', resetEditModal);
+// })

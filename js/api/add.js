@@ -1,12 +1,3 @@
-// window.onload = () => {
-//     addPw.addEventListener('click', handleAddPasswordView);
-//     addEmail.addEventListener('blur', () => checkEmailValidation(addEmail, addEmailMessage));
-//     addTelephone.addEventListener('blur', () => checkPhoneValidation(addTelephone, addTelephoneMessage));
-//     addPassword.addEventListener('blur', () => checkPasswordValidation(addPassword, addPasswordMessage));
-//     addBtn.addEventListener("click", clickAddBtn);
-// }
-
-
 const addUser = () => {  
     if(!isValidEmail || !isValidTelephone || !isValidPassword){
         return
@@ -21,7 +12,7 @@ const addUser = () => {
         role: addRole.value,
         password: CryptoJS.SHA256(addPassword.value).toString()
     }
-    updateUser(params)
+    createUser(params)
     .then(() => {
         closeModal('#add-modal');
         return fetchData();
@@ -48,4 +39,10 @@ const clickAddBtn = () => {
     debounce(addUser);
 }
 
- 
+window.addEventListener('load', () => {
+    addPw.addEventListener('click', handleAddPasswordView);
+    addEmail.addEventListener('blur', () => checkEmailValidation(addEmail, addEmailMessage));
+    addTelephone.addEventListener('blur', () => checkPhoneValidation(addTelephone, addTelephoneMessage));
+    addPassword.addEventListener('blur', () => checkPasswordValidation(addPassword, addPasswordMessage));
+    addBtn.addEventListener("click", clickAddBtn);
+});

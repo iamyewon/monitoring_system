@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Monitoring System</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/modal.css">
@@ -19,8 +20,10 @@
     </header>
     <main>
         <div class="add-btn-wrap">
-            <span class="add-btn-mark" data-bs-toggle="modal" data-bs-target="#add-modal">+</span>
-            <span class="add-btn-text" data-bs-toggle="modal" data-bs-target="#add-modal">ADD</span>
+            <div class="add-btn-box">
+                <span class="add-btn-mark" data-bs-toggle="modal" data-bs-target="#add-modal">+</span>
+                <span class="add-btn-text" data-bs-toggle="modal" data-bs-target="#add-modal">ADD</span>
+            </div>
         </div>
         <div class="table-container">
             <table>
@@ -63,7 +66,7 @@
     </main>
 
     <!-- add Modal -->
-    <div class="modal fade" id="add-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="add-modal-title" aria-hidden="true" >
+    <div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="add-modal-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content add-modal-content">
                 <div class="modal-header">
@@ -123,11 +126,12 @@
                     <form>
                         <div class="input-box">
                             <label for="edit-username">User name</label>
-                            <input type="text" id="edit-username" name="username" autocomplete="off" readonly>
+                            <input type="text" id="edit-username" name="username" autocomplete="off">
                         </div>
                         <div class="input-box">
                             <label for="edit-email">Email</label>
                             <input type="text" id="edit-email" name="email" autocomplete="off" readonly>
+                            <p class="edit-email-message message"></p>
                         </div>
                         <div class="input-box">
                             <label for="edit-telephone">Telephone</label>

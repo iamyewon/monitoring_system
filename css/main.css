@@ -9,6 +9,14 @@
     align-items: end;
 }
 
+.add-btn-box{
+    width: 70px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
 .add-btn-mark{
     width: 18px;
     height: 18px;
@@ -36,7 +44,8 @@
 
 .table-container{
     width: 1796px;
-    height: 697px;
+    /* height: 697px; */
+    height: 680px;
     margin: 0 auto;
     padding: 9px 30px 113px;
     border-radius: 8px;

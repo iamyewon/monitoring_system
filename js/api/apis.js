@@ -3,7 +3,7 @@ const findUsers = (params) => {
 }
 
 const deleteUser = (deleteId) => {
-    return axios.delete(`${API_URL}/${deleteId}`)
+    return axios.delete(`${API_URL.USERS}/${deleteId}`)
 }
 
 const updateUser = (params) => {

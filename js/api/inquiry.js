@@ -17,9 +17,9 @@ const fetchData = () => {
     .finally(hideLoading)
 }
 
-const formatPhoneNumber = (phoneNumber) => {
-    return phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-}
+// const formatPhoneNumber = (phoneNumber) => {
+//     return phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+// }
 
 const populateTable = (data) => {
     tableBody.innerHTML = '';
@@ -40,7 +40,7 @@ const populateTable = (data) => {
         row.appendChild(userNameCell);
 
         const telephoneCell = document.createElement('td');
-        telephoneCell.textContent = formatPhoneNumber(user.phone);
+        telephoneCell.textContent = user.phone;
         row.appendChild(telephoneCell);
 
         const roleCell = document.createElement('td');
@@ -112,3 +112,15 @@ const updatePageSizeAndLoadData = (e) => {
 //         case '누락'
 //     }
 //}
+
+window.addEventListener('load', () => {
+    document.querySelector('.title').addEventListener('click', () => {
+        fetchData()
+            .then((res) => {
+                populateTable(res);
+            })
+            .catch(() => {
+                console.error;
+            });
+    });
+})

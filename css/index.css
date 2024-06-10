@@ -7,6 +7,7 @@
 body{
     width: 100vw;
     background-color: #f4f5f7;
+    overflow: hidden;
 }
 
 select{
@@ -42,7 +43,7 @@ header{
 
 /* loading */
 .loading-background{
-    background-color: transparent;
+    background-color: #9a9a9a43;
     width: 100vw;
     height: 100vh;
     position: fixed;

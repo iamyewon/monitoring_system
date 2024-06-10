@@ -14,6 +14,7 @@ const resetAddModal = () => {
     hiddenAlertMessage(addEmail, addEmailMessage);
     hiddenAlertMessage(addTelephone, addTelephoneMessage);
     hiddenAlertMessage(addPassword, addPasswordMessage);
+    resetAddPassword();
 }
 
 const resetEditModal = () => {
@@ -21,26 +22,13 @@ const resetEditModal = () => {
     editEmail.value = '';
     editTelephone.value = '';
     editRole.value = 'user';
-    // editPassword.value = '';
 
-    hiddenAlertMessage(addEmail, addEmailMessage);
-    hiddenAlertMessage(addTelephone, addTelephoneMessage);
-    // hiddenAlertMessage(addPassword, addPasswordMessage);
+    hiddenAlertMessage(editTelephone, editTelephoneMessage);
+    resetAddPassword();
 }
 
-// TODO 모달 백그라운드 닫힘 막기
-const setModal = (modalId, button, resetFunc) => {
+const setModal = (modalId, resetFunc) => {
     const modalElement = document.querySelector(modalId);
-    const btnElement = document.querySelector(button);
-
-    const modalInstance = new bootstrap.Modal(modalElement, {
-        backdrop: 'static',
-        keyboard: false
-    });
-      
-    // btnElement.addEventListener('click', function() {
-    //     modalInstance.show();
-    // });
     
     modalElement.addEventListener('click', (event) => {
         if (event.target === modalElement) {
@@ -54,7 +42,6 @@ const setModal = (modalId, button, resetFunc) => {
     })
 }
 
-// window.addEventListener('load', () => {
-    setModal('#add-modal', '.add-btn-mark', resetAddModal);
-    // setModal('#edit-modal', '.edit-btn', resetEditModal);
-// })
+    setModal('#add-modal', resetAddModal);
+    setModal('#edit-modal', resetEditModal);
+

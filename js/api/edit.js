@@ -1,13 +1,27 @@
+let editEmailValue;
+const editEmailMessage = document.querySelector('.edit-email-message');
+
 const populateEditModal = (user) => {
     editUsername.value = user.name;
     editEmail.value = user.email;
     editTelephone.value = user.phone;
     editRole.value = user.role.toLowerCase();
     editId.value = user.id;
+
+    editEmailValue = user.email;
+}
+
+const handleChangeEditEmail = () => {
+    if (editEmail.value !== editEmailValue) {
+        showAlertMessage(editEmail, editEmailMessage, 'The field value cannot be changed')
+        return false;
+    }
+    hiddenAlertMessage(editEmail, editEmailMessage);
+    return true;
 }
 
 const handleUpdate = () => {
-    if(!isValidTelephone){
+    if(!isValidTelephone || !handleChangeEditEmail()){
         return;
     }
 
@@ -34,3 +48,13 @@ const handleUpdate = () => {
     .finally(hideLoading)
 }
 
+window.addEventListener('load', () => {
+    editEmail.addEventListener('blur', handleChangeEditEmail)
+    editTelephone.addEventListener('blur', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
+    checkUpdateBtn.addEventListener('click', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
+
+    checkUpdateBtn.addEventListener('click', () => {
+        debounceTimer && clearTimeout(debounceTimer);
+        debounce(handleUpdate);
+    });
+})

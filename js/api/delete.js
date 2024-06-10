@@ -13,3 +13,10 @@ const handleDelete = () => {
     .catch(console.error)
     .finally(hideLoading)
 }
+
+window.addEventListener('load', () => {
+    checkDeleteBtn.addEventListener("click",  () => {
+        debounceTimer && clearTimeout(debounceTimer);
+        debounce(handleDelete)
+    });
+})

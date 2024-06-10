@@ -47,27 +47,7 @@ let isValidPassword = false;
 
 let isLoading = false;
 
-window.onload = () => {
-    // TODO : modal로 
-    addPw.addEventListener('click', handleAddPasswordView);
-    addEmail.addEventListener('blur', () => checkEmailValidation(addEmail, addEmailMessage));
-    addTelephone.addEventListener('blur', () => checkPhoneValidation(addTelephone, addTelephoneMessage));
-    addPassword.addEventListener('blur', () => checkPasswordValidation(addPassword, addPasswordMessage));
-    addBtn.addEventListener("click", clickAddBtn);
-
-    checkDeleteBtn.addEventListener("click",  () => {
-        debounceTimer && clearTimeout(debounceTimer);
-        debounce(handleDelete)
-    });
-
-    editTelephone.addEventListener('blur', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
-    checkUpdateBtn.addEventListener('click', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
-
-    checkUpdateBtn.addEventListener('click', () => {
-        debounceTimer && clearTimeout(debounceTimer);
-        debounce(handleUpdate);
-    });
-   
+window.onload = () => {   
     theadRow.addEventListener("click", sortAndLoadData);
     itemsPerView.addEventListener("change", updatePageSizeAndLoadData);
 

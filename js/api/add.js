@@ -6,7 +6,7 @@ const addUser = () => {
     displayLoading();
 
     const params = {
-        name: addUsername.value,
+        name: addUsername.value !== '' ? addUsername.value : null,
         email: addEmail.value,
         phone: addTelephone.value,
         role: addRole.value,

@@ -29,11 +29,15 @@ const handleUpdate = () => {
 
     const params = {
         id: editId.value,
-        name: editUsername.value,
+        name: editUsername.value !== '' ? editUsername.value : null,
         email: editEmail.value,
         phone: editTelephone.value,
         role: editRole.value.toUpperCase(),
         password: 'example01!',
+    }
+
+    if(editUsername.value === ''){
+        params.name === null;
     }
 
     updateUser(params)

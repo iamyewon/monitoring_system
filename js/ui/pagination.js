@@ -97,29 +97,44 @@ const handlePage = async() => {
     handlePageNavigation(data);
 }
 
-PaginationLists.addEventListener('click', (e) => {  
-    const {textContent, localName} = e.target;  
 
-    if(localName !== 'li'){
-        return;
-    }
-
-    if(Number(textContent) === currentPage){
-        return; 
-    }
+window.addEventListener('load', () => {
+    PaginationLists.addEventListener('click', (e) => {  
+        const {textContent, localName} = e.target;  
     
-    currentPage = Number(textContent);
-    document.querySelector('.active').classList.remove('active');
-    handlePage();
+        if(localName !== 'li'){
+            return;
+        }
+    
+        // if(Number(textContent) === currentPage){
+        //     return; 
+        // }
+        
+        currentPage = Number(textContent);
+        document.querySelector('.active').classList.remove('active');
+    
+        // debounceTimer && clearTimeout(debounceTimer);
+        // debounce(handlePage);
+        handlePage(); 
+        // TODO : 디바운싱 걸면 active 못찾는다고 에러남 -> null ?
+    })
+    
+    
+    prevBtn.addEventListener('click', () => {
+        currentPage = currentPage - 1;
+
+        debounceTimer && clearTimeout(debounceTimer);
+        debounce(handlePage);
+        // handlePage();
+    })
+    
+    nextBtn.addEventListener('click', () => {
+        currentPage = currentPage + 1;
+        
+        debounceTimer && clearTimeout(debounceTimer);
+        debounce(handlePage);
+        // handlePage();
+    })
 })
 
 
-prevBtn.addEventListener('click', () => {
-    currentPage = currentPage - 1;
-    handlePage();
-})
-
-nextBtn.addEventListener('click', () => {
-    currentPage = currentPage + 1;
-    handlePage();
-})

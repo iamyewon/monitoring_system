@@ -7,9 +7,9 @@ const fetchData = () => {
     }
 
     displayLoading();
-    // return axios.get("../test.json")
+    return axios.get("../test.json")
 
-    return findUsers(params)
+    // return findUsers(params)
     .then((response) => {
         return response.data;
     })

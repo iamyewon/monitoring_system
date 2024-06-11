@@ -13,7 +13,8 @@ const addUser = () => {
         password: CryptoJS.SHA256(addPassword.value).toString()
     }
     createUser(params)
-    .then(() => {
+    .then((result) => {
+        console.log(result);
         closeModal('#add-modal');
         return fetchData();
     })

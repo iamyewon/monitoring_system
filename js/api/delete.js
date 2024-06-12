@@ -10,13 +10,15 @@ const handleDelete = () => {
     .then((res) => {
         populateTable(res)
     })
-    .catch(console.error)
+    .catch((error) => {
+        const { code } = error.response.data;
+        if(code === ERROR_CODE.EC1005){
+            alert('The specified ID does not exist.');
+        }
+    })
     .finally(hideLoading)
 }
 
 window.addEventListener('load', () => {
-    checkDeleteBtn.addEventListener("click",  () => {
-        debounceTimer && clearTimeout(debounceTimer);
-        debounce(handleDelete)
-    });
+    checkDeleteBtn.addEventListener("click",  () => debounce(handleDelete));
 })

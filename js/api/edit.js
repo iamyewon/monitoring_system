@@ -7,7 +7,6 @@ const populateEditModal = (user) => {
     editTelephone.value = user.phone;
     editRole.value = user.role.toLowerCase();
     editId.value = user.id;
-
     editEmailValue = user.email;
 }
 
@@ -48,7 +47,9 @@ const handleUpdate = () => {
     .then((res) => {
         populateTable(res);
     })
-    .catch(console.error)
+    .catch((error) => {
+        const { code } = error.response.data;
+    })
     .finally(hideLoading)
 }
 
@@ -56,9 +57,5 @@ window.addEventListener('load', () => {
     editEmail.addEventListener('blur', handleChangeEditEmail)
     editTelephone.addEventListener('blur', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
     checkUpdateBtn.addEventListener('click', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
-
-    checkUpdateBtn.addEventListener('click', () => {
-        debounceTimer && clearTimeout(debounceTimer);
-        debounce(handleUpdate);
-    });
+    checkUpdateBtn.addEventListener('click', () => debounce(handleUpdate));
 })

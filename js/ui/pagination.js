@@ -89,43 +89,62 @@ const handlePageNavigation = (data) => {
     currentPage === totalPages ? disableNextBtn() : ableNextBtn();
 }
 
-const handlePage = async() => {
+// const handlePage = async() => {
+//     const data = await fetchData();
+//     if (!data) return;
+//     populatePagination(data);
+//     populateTable(data);
+//     handlePageNavigation(data);
+// }
+
+const throttle = (func, limit) => {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
+// handlePage 함수를 쓰로틀링 처리
+const handlePage = throttle(async () => {
     const data = await fetchData();
     if (!data) return;
     populatePagination(data);
     populateTable(data);
     handlePageNavigation(data);
+}, 1000); // 1000ms 쓰로틀 시간 설정 (원하는 시간으로 변경 가능)
+
+const changePage = (e) => {
+    const {textContent, localName} = e.target;  
+    
+    if(localName !== 'li'){
+        return;
+    }
+
+    currentPage = Number(textContent);
+    document.querySelector('.active').classList.remove('active');
+
+    handlePage(); 
 }
 
-
 window.addEventListener('load', () => {
-    PaginationLists.addEventListener('click', (e) => {  
-        const {textContent, localName} = e.target;  
-    
-        if(localName !== 'li'){
-            return;
-        }
-
-        currentPage = Number(textContent);
-        document.querySelector('.active').classList.remove('active');
-    
-        handlePage(); 
+    PaginationLists.addEventListener('click', (e) => {
+        changePage(e);
     })
-    
+    // PaginationLists.addEventListener('click', (e) => leadingDebounce(() => changePage(e)))
+    // PaginationLists.addEventListener('click', debounceTest(changePage, 300, true))
     
     prevBtn.addEventListener('click', () => {
         currentPage = currentPage - 1;
 
-        // debounceTimer && clearTimeout(debounceTimer);
-        // debounce(handlePage);
         handlePage();
     })
     
     nextBtn.addEventListener('click', () => {
         currentPage = currentPage + 1;
-        
-        // debounceTimer && clearTimeout(debounceTimer);
-        // debounce(handlePage);
         handlePage();
     })
 })

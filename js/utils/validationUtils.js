@@ -1,8 +1,7 @@
 
 const spaceRegex = /\s/;
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-// const phoneRegex = /^(01[016789]-?\d{3,4}-?\d{4}|0\d{1,2}-\d{3,4}-\d{4})$/; // 핸드폰, 지역번호 모두 허용 
-const phoneRegex = /^010-?\d{3,4}-?\d{4}$/; // 하이픈 허용 
+const phoneRegex = /^010-?\d{3,4}-?\d{4}$/;
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*]).{8,16}$/;
 
 const showAlertMessage = (inputTag, messageTag, message) => {

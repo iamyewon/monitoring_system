@@ -23,9 +23,30 @@ const addUser = () => {
     })
     .catch((error) => {
         const { code } = error.response.data;
+
+        // switch(code){
+        //     case 'ERROR_CODE.EC1004': 
+        //         addEmailMessage.textContent = "This email already exists.";
+        //         addEmailMessage.classList.remove('hidden');
+        //         break;
+        //     case 'ERROR_CODE.EC1001': 
+        //         alert('[error] There are unfilled fields.');
+        //         break;
+        //     case 'ERROR_CODE.EC1002':
+        //         alert('[error] There are fields that do not meet the validation criteria.');
+        //         break;
+        //     case ''
+        // }
         if(code === ERROR_CODE.EC1004){
             addEmailMessage.textContent = "This email already exists.";
             addEmailMessage.classList.remove('hidden');
+        }else if(code === ERROR_CODE.EC1001){
+            alert('[error] There are unfilled fields.');
+        }else if(code === ERROR_CODE.EC1002){
+            console.log("1231232131");
+            alert('[error] There are fields that do not meet the validation criteria.');
+        }else if(code.length >= 2){
+            alert('[error] There are unfilled or invalid fields.')
         }
     })
     .finally(hideLoading)
@@ -36,7 +57,6 @@ const clickAddBtn = () => {
     checkPhoneValidation(addTelephone, addTelephoneMessage);
     checkPasswordValidation(addPassword, addPasswordMessage);
 
-    debounceTimer && clearTimeout(debounceTimer);
     debounce(addUser);
 }
 

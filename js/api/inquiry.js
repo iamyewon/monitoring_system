@@ -17,10 +17,6 @@ const fetchData = () => {
     .finally(hideLoading)
 }
 
-// const formatPhoneNumber = (phoneNumber) => {
-//     return phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-// }
-
 const populateTable = (data) => {
     tableBody.innerHTML = '';
 
@@ -84,7 +80,6 @@ const loadAndDisplayData = async() => {
 
 
 const sortAndLoadData = (e) => {
-    debounceTimer && clearTimeout(debounceTimer);
     debounce(() => {
         sortColumn = e.target.id;
         sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
@@ -98,7 +93,6 @@ const sortAndLoadData = (e) => {
 }
 
 const updatePageSizeAndLoadData = (e) => {
-    debounceTimer && clearTimeout(debounceTimer);
     debounce(async() => {
         pageSize = Number(e.target.value);
         currentPage = 1;
@@ -106,12 +100,6 @@ const updatePageSizeAndLoadData = (e) => {
         loadAndDisplayData();
     });
 }
-
-// const showError= (errorCode) =>{
-//     switch(errorCode) {
-//         case '누락'
-//     }
-//}
 
 window.addEventListener('load', () => {
     document.querySelector('.title').addEventListener('click', () => {

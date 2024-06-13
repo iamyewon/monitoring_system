@@ -36,10 +36,8 @@ header{
     font-size: 26px;
     padding: 24px 30px;
     border-bottom: 1px solid #d7dbe6;
+    cursor: pointer;
 }
-
-
-
 
 /* loading */
 .loading-background{

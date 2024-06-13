@@ -40,6 +40,11 @@ const nextBtn = document.querySelector('.next-btn');
 
 const loadingBackground = document.querySelector('.loading-background');
 
+const toastTrigger = document.getElementById('liveToastBtn');
+const toastLiveExample = document.getElementById('liveToast');
+const toastBody = document.querySelector('.toast-body');
+
+
 let isValidEmail = false;
 let isValidUserName = false;
 let isValidTelephone = false;
@@ -51,6 +56,6 @@ window.onload = () => {
     theadRow.addEventListener("click", sortAndLoadData);
     itemsPerView.addEventListener("change", updatePageSizeAndLoadData);
 
-    // TODO : 개발자 의도가 보이도록 핵심이 되는 메인 실행 함수는 index에서 
+    // 개발자 의도가 보이도록 핵심이 되는 메인 실행 함수는 index에서 
     loadAndDisplayData();
 }

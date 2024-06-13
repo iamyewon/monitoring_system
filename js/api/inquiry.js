@@ -6,9 +6,6 @@ const fetchData = () => {
         currentPage
     }
 
-    displayLoading();
-    // return axios.get("../test.json")
-
     return findUsers(params)
     .then((response) => {
         return response.data;
@@ -24,7 +21,7 @@ const populateTable = (data) => {
         const row = document.createElement('tr');
 
         const seqCell = document.createElement('td');
-        seqCell.textContent = user.id;
+        seqCell.textContent = user.seq;
         row.appendChild(seqCell);
 
         const emailCell = document.createElement('td');
@@ -80,6 +77,7 @@ const loadAndDisplayData = async() => {
 
 
 const sortAndLoadData = (e) => {
+    displayLoading();
     debounce(() => {
         sortColumn = e.target.id;
         sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
@@ -93,6 +91,7 @@ const sortAndLoadData = (e) => {
 }
 
 const updatePageSizeAndLoadData = (e) => {
+    displayLoading();
     debounce(async() => {
         pageSize = Number(e.target.value);
         currentPage = 1;
@@ -101,6 +100,7 @@ const updatePageSizeAndLoadData = (e) => {
     });
 }
 
+// TODO : 디바운싱 적용 
 window.addEventListener('load', () => {
     document.querySelector('.title').addEventListener('click', () => {
         fetchData()

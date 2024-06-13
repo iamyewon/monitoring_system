@@ -22,31 +22,35 @@ const addUser = () => {
         populateTable(res);
     })
     .catch((error) => {
+        const { status } = error.response.status;
         const { code } = error.response.data;
-
+        // TODO : 한번에 두가지 왔을 때 처리 가능 ? 
         // switch(code){
-        //     case 'ERROR_CODE.EC1004': 
+        //     case ERROR_CODE.EC1004: 
         //         addEmailMessage.textContent = "This email already exists.";
         //         addEmailMessage.classList.remove('hidden');
         //         break;
-        //     case 'ERROR_CODE.EC1001': 
+        //     case ERROR_CODE.EC1001: 
         //         alert('[error] There are unfilled fields.');
         //         break;
-        //     case 'ERROR_CODE.EC1002':
+        //     case ERROR_CODE.EC1002:
         //         alert('[error] There are fields that do not meet the validation criteria.');
         //         break;
-        //     case ''
+        //     default: 
+        //         alert('[error] An unknown error occurred.');
         // }
+
         if(code === ERROR_CODE.EC1004){
             addEmailMessage.textContent = "This email already exists.";
             addEmailMessage.classList.remove('hidden');
         }else if(code === ERROR_CODE.EC1001){
             alert('[error] There are unfilled fields.');
         }else if(code === ERROR_CODE.EC1002){
-            console.log("1231232131");
             alert('[error] There are fields that do not meet the validation criteria.');
         }else if(code.length >= 2){
-            alert('[error] There are unfilled or invalid fields.')
+            alert('[error] There are unfilled or invalid fields.');
+        }else{
+            alert('[error] An unknown error occurred.');
         }
     })
     .finally(hideLoading)
@@ -57,6 +61,8 @@ const clickAddBtn = () => {
     checkPhoneValidation(addTelephone, addTelephoneMessage);
     checkPasswordValidation(addPassword, addPasswordMessage);
 
+    // TODO : 로딩 안뜸 ! 
+    // displayLoading();
     debounce(addUser);
 }
 
@@ -65,5 +71,8 @@ window.addEventListener('load', () => {
     addEmail.addEventListener('blur', () => checkEmailValidation(addEmail, addEmailMessage));
     addTelephone.addEventListener('blur', () => checkPhoneValidation(addTelephone, addTelephoneMessage));
     addPassword.addEventListener('blur', () => checkPasswordValidation(addPassword, addPasswordMessage));
-    addBtn.addEventListener("click", clickAddBtn);
+    addBtn.addEventListener("click", () => {
+        // displayLoading();
+        clickAddBtn();
+    });
 });

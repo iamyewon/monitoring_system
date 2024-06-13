@@ -24,8 +24,6 @@ const handleUpdate = () => {
         return;
     }
 
-    displayLoading();
-
     const params = {
         id: editId.value,
         name: editUsername.value !== '' ? editUsername.value : null,
@@ -45,10 +43,24 @@ const handleUpdate = () => {
         return fetchData();
     })
     .then((res) => {
+        console.log(res);
+        console.log('Status:', res.status)
+        // const { status } = res.response.status;
+        // console.log(status);
         populateTable(res);
     })
     .catch((error) => {
-        const { code } = error.response.data;
+        const { code } = error.response.data; //TODO : 에러 - TypeError: Cannot read properties of undefined (reading 'data')
+
+        if(code === ERROR_CODE.EC1001){
+            alert('[error] There are unfilled fields.');
+        }else if(code === ERROR_CODE.EC1002){
+            alert('[error] There are fields that do not meet the validation criteria.');
+        }else if(code.length >= 2){
+            alert('[error] There are unfilled or invalid fields.');
+        }else{
+            alert('[error] An unknown error occurred.');
+        }
     })
     .finally(hideLoading)
 }
@@ -57,5 +69,10 @@ window.addEventListener('load', () => {
     editEmail.addEventListener('blur', handleChangeEditEmail)
     editTelephone.addEventListener('blur', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
     checkUpdateBtn.addEventListener('click', () => checkPhoneValidation(editTelephone, editTelephoneMessage));
-    checkUpdateBtn.addEventListener('click', () => debounce(handleUpdate));
+    checkUpdateBtn.addEventListener('click', () => {
+        displayLoading();
+        debounce(handleUpdate)
+    });
 })
+
+

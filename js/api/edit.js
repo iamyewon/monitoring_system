@@ -20,9 +20,9 @@ const handleChangeEditEmail = () => {
 }
 
 const handleUpdate = () => {
-    if(!isValidTelephone || !handleChangeEditEmail()){
-        return;
-    }
+    // if(!isValidTelephone || !handleChangeEditEmail()){
+    //     return;
+    // }
 
     const params = {
         id: editId.value,
@@ -38,28 +38,27 @@ const handleUpdate = () => {
     }
 
     updateUser(params)
-    .then(() => {
+    .then((res) => {
         closeModal('#edit-modal')
+
+        if(res.status === 204){
+            return;
+        }
         return fetchData();
     })
     .then((res) => {
-        console.log(res);
-        console.log('Status:', res.status)
-        // const { status } = res.response.status;
-        // console.log(status);
-        populateTable(res);
+        res && populateTable(res);
     })
     .catch((error) => {
-        const { code } = error.response.data; //TODO : 에러 - TypeError: Cannot read properties of undefined (reading 'data')
-
-        if(code === ERROR_CODE.EC1001){
-            alert('[error] There are unfilled fields.');
-        }else if(code === ERROR_CODE.EC1002){
-            alert('[error] There are fields that do not meet the validation criteria.');
-        }else if(code.length >= 2){
-            alert('[error] There are unfilled or invalid fields.');
-        }else{
-            alert('[error] An unknown error occurred.');
+        if (error.response && error.response.data) {//TODO : 에러 - TypeError: Cannot read properties of undefined (reading 'data')
+            const { code } = error.response.data; 
+            if(code === ERROR_CODE.EC1001){
+                alert('[error] There are unfilled fields.');
+            }else if(code === ERROR_CODE.EC1002){
+                alert('[error] There are fields that do not meet the validation criteria.');
+            }else{
+                alert('[error] An unknown error occurred.');
+            }
         }
     })
     .finally(hideLoading)

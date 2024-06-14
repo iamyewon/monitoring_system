@@ -5,15 +5,21 @@ const handleDelete = () => {
     deleteUser(deleteId)
     .then(() => {
         closeModal('#delete-modal');
+
+        if(res.status === 204){
+            return;
+        }
         return fetchData();
     })
     .then((res) => {
         populateTable(res)
     })
     .catch((error) => {
-        const { code } = error.response.data;
-        if(code === ERROR_CODE.EC1005){
-            alert('The specified ID does not exist.');
+        if (error.response && error.response.data) {
+            const { code } = error.response.data;
+            if(code === ERROR_CODE.EC1005){
+                alert('The specified ID does not exist.');
+            }
         }
     })
     .finally(hideLoading)

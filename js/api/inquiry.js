@@ -10,7 +10,18 @@ const fetchData = () => {
     .then((response) => {
         return response.data;
     })
-    .catch((data)=> console.log(data))
+    .catch((error) => {
+        if (error.response && error.response.data) {
+            const { code } = error.response.data;
+            if(code === ERROR_CODE.EC1006){
+                alert('[error] An error occurred. Please try again.');
+            }else if(code === ERROR_CODE.EC1007){
+                alert('[error] An error occurred. Please try again.');
+            }else{
+                alert('[error] An unknown error occurred.');
+            }
+        }
+    })
     .finally(hideLoading)
 }
 

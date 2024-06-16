@@ -13,4 +13,13 @@ const MODAL_TYPE = {
     EDIT: 'EDIT'
 }
 
+const SORT_TYPE = {
+    ASC: 'asc',
+    DESC: 'desc',
+}
+
 const MAX_VISIBLE_PAGES = 7; 
+
+const SUCCESS_STATUS = {
+    NO_CONTENT: 204,
+}

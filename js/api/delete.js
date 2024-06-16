@@ -6,29 +6,19 @@ const handleDelete = () => {
     .then(() => {
         closeModal('#delete-modal');
 
-        if(res.status === 204){
+        if(res.status === SUCCESS_STATUS.NO_CONTENT){
+            showAlert('There are no changes');
             return;
         }
-        return fetchData();
+        
+        loadAndDisplayData();
     })
-    .then((res) => {
-        populateTable(res)
+    .catch(handleErrorResponse)
+    .finally(() => {
+        loadAndDisplayData();
+        hideLoading();
     })
-    .catch((error) => {
-        if (error.response && error.response.data) {
-            const { code } = error.response.data;
-
-            code === ERROR_CODE.EC1005 && alert('The specified ID does not exist.');
-
-            // if(code === ERROR_CODE.EC1005){
-            //     alert('The specified ID does not exist.');
-            // }
-        }
-    })
-    .finally(hideLoading)
 }
 
-window.addEventListener('load', () => {
-    checkDeleteBtn.addEventListener("click",  () => debounce(handleDelete));
-})
+window.addEventListener('load', () => checkDeleteBtn.addEventListener("click", () => debounce(handleDelete)))
 

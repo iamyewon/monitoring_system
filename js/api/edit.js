@@ -20,9 +20,9 @@ const handleChangeEditEmail = () => {
 }
 
 const handleUpdate = () => {
-    // if(!isValidTelephone || !handleChangeEditEmail()){
-    //     return;
-    // }
+    if(!isValidTelephone || !handleChangeEditEmail()){
+        return;
+    }
 
     const params = {
         id: editId.value,
@@ -41,33 +41,16 @@ const handleUpdate = () => {
     .then((res) => {
         closeModal('#edit-modal')
 
-        if(res.status === 204){
+        if(res.status === SUCCESS_STATUS.NO_CONTENT){
+            showAlert('There are no changes');
             return;
         }
-        return fetchData();
     })
-    .then((res) => {
-        res && populateTable(res);
+    .catch(handleErrorResponse)
+    .finally(() => {
+        loadAndDisplayData();
+        hideLoading();
     })
-    .catch((error) => {
-        if (error.response && error.response.data) {//TODO : 에러 - TypeError: Cannot read properties of undefined (reading 'data')
-            const { code } = error.response.data; 
-            console.log(code);
-            switch(code){
-                case ERROR_CODE.EC1001: 
-                    // alert('[error] There are unfilled fields.');
-                    showAlert('error', 'There are unfilled or invalid fields.', 'Alert');
-                    break;
-                case ERROR_CODE.EC1002: 
-                    // alert('[error] There are fields that do not meet the validation criteria.');
-                    showAlert('error', 'There are unfilled or invalid fields.', 'Alert');
-                    break;
-                default: 
-                    alert('[error] An unknown error occurred.');
-            }
-        }
-    })
-    .finally(hideLoading)
 }
 
 window.addEventListener('load', () => {

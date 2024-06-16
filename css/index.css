@@ -63,7 +63,15 @@ header{
     transform: translate(-50%, -50%);
   }
   
-  @keyframes spin {
+@keyframes spin {
     0% { translate: (-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
-  }
+}
+
+.toast-container{
+    width: 100vw !important;
+}
+
+.toast{
+    margin: 0 auto;
+}

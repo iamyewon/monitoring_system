@@ -10,9 +10,12 @@ const addUser = () => {
         return
     }
 
+    displayLoading();
+
     const params = {
         name: addUsername.value !== '' ? addUsername.value : null,
         email: addEmail.value,
+        email: '',
         phone: addTelephone.value,
         role: addRole.value,
         password: CryptoJS.SHA256(addPassword.value).toString()
@@ -21,32 +24,13 @@ const addUser = () => {
     createUser(params)
     .then(() => {
         closeModal('#add-modal');
-
-        return fetchData();
+        loadAndDisplayData();
     })
-    .then((res) => {
-        populateTable(res);
+    .catch(handleErrorResponse)
+    .finally(() => {
+        loadAndDisplayData();
+        hideLoading();
     })
-    .catch((error) => {
-        if (error.response && error.response.data) {
-            const { code } = error.response.data;
-            switch(code){
-                case ERROR_CODE.EC1004: 
-                    addEmailMessage.textContent = "This email already exists.";
-                    addEmailMessage.classList.remove('hidden');
-                    break;
-                case ERROR_CODE.EC1001: 
-                    alert('[error] There are unfilled fields.');
-                    break;
-                case ERROR_CODE.EC1002:
-                    alert('[error] There are fields that do not meet the validation criteria.');
-                    break;
-                default: 
-                    alert('[error] An unknown error occurred.');
-            }
-        }
-    })
-    .finally(hideLoading)
 }
 
 /**
@@ -58,8 +42,6 @@ const clickAddBtn = () => {
     checkEmailValidation(addEmail, addEmailMessage);
     checkPhoneValidation(addTelephone, addTelephoneMessage);
     checkPasswordValidation(addPassword, addPasswordMessage);
-
-    displayLoading();
     debounce(addUser);
 }
 

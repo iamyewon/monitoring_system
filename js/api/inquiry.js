@@ -1,4 +1,4 @@
-const fetchData = () => {
+const loadAndDisplayData = () => {
     const params = {
         sortColumn,
         sortOrder,
@@ -8,23 +8,11 @@ const fetchData = () => {
 
     return findUsers(params)
     .then((response) => {
-        return response.data;
+        populatePagination(response.data);
+        populateTable(response.data);
+        handlePageNavigation(response.data);
     })
-    .catch((error) => {
-        if (error.response && error.response.data) {
-            const { code } = error.response.data;
-            switch(code){
-                case ERROR_CODE.EC1006: 
-                    alert('[error] An error occurred. Please try again.');
-                    break;
-                case ERROR_CODE.EC1007: 
-                    alert('[error] An error occurred. Please try again.');
-                    break;
-                default: 
-                    alert('[error] An unknown error occurred.');
-            }
-        }
-    })
+    .catch(handleErrorResponse)
     .finally(hideLoading)
 }
 
@@ -82,23 +70,16 @@ const populateTable = (data) => {
     })
 };
 
-const loadAndDisplayData = async() => {
-    const data = await fetchData();
-    if (!data) return;
-    populatePagination(data);
-    populateTable(data);
-}
-
-
 const sortAndLoadData = (e) => {
+    if(e.target.id === ''){
+        return;
+    }
+
     displayLoading();
     debounce(() => {
         sortColumn = e.target.id;
-        sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+        sortOrder = sortOrder === SORT_TYPE.ASC ? SORT_TYPE.DESC : SORT_TYPE.ASC;
     
-        if(sortColumn === ''){
-            return;
-        }
     
         loadAndDisplayData();
     })
@@ -106,7 +87,7 @@ const sortAndLoadData = (e) => {
 
 const updatePageSizeAndLoadData = (e) => {
     displayLoading();
-    debounce(async() => {
+    debounce(() => {
         pageSize = Number(e.target.value);
         currentPage = 1;
 
@@ -114,15 +95,4 @@ const updatePageSizeAndLoadData = (e) => {
     });
 }
 
-// TODO : 디바운싱 적용 
-window.addEventListener('load', () => {
-    document.querySelector('.title').addEventListener('click', () => {
-        fetchData()
-            .then((res) => {
-                populateTable(res);
-            })
-            .catch(() => {
-                console.error;
-            });
-    });
-})
+window.addEventListener('load', () => document.querySelector('.title').addEventListener('click', () => debounce(loadAndDisplayData)));

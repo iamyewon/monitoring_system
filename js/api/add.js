@@ -1,9 +1,14 @@
+
+/**
+ * 유저를 추가하는 모달에서 SAVE(추가하기) 버튼을 눌렀을 때 호출되는 함수 
+ * @author 웹팀 김예원 2024-06-14
+ * @returns {Promise}
+ * @description createUser(유저 추가 API)호출, 성공시 페이지 재조회
+ */
 const addUser = () => {  
     if(!isValidEmail || !isValidTelephone || !isValidPassword){
         return
     }
-
-    displayLoading();
 
     const params = {
         name: addUsername.value !== '' ? addUsername.value : null,
@@ -12,10 +17,11 @@ const addUser = () => {
         role: addRole.value,
         password: CryptoJS.SHA256(addPassword.value).toString()
     }
+    
     createUser(params)
-    .then((result) => {
-        console.log(result);
+    .then(() => {
         closeModal('#add-modal');
+
         return fetchData();
     })
     .then((res) => {
@@ -24,7 +30,6 @@ const addUser = () => {
     .catch((error) => {
         if (error.response && error.response.data) {
             const { code } = error.response.data;
-            // TODO : 한번에 두가지 왔을 때 처리 가능 ? 
             switch(code){
                 case ERROR_CODE.EC1004: 
                     addEmailMessage.textContent = "This email already exists.";
@@ -39,29 +44,22 @@ const addUser = () => {
                 default: 
                     alert('[error] An unknown error occurred.');
             }
-
-            // if(code === ERROR_CODE.EC1004){
-            //     addEmailMessage.textContent = "This email already exists.";
-            //     addEmailMessage.classList.remove('hidden');
-            // }else if(code === ERROR_CODE.EC1001){
-            //     alert('[error] There are unfilled fields.');
-            // }else if(code === ERROR_CODE.EC1002){
-            //     alert('[error] There are fields that do not meet the validation criteria.');
-            // }else{
-            //     alert('[error] An unknown error occurred.');
-            // }
         }
     })
     .finally(hideLoading)
 }
 
+/**
+ * 유저를 추가하는 모달에서 SAVE(추가하기) 버튼을 눌렀을 때 호출되는 함수 
+ * @author 웹팀 김예원 2024-06-14
+ * @description validation 검증 후 addUser 함수 호출
+ */
 const clickAddBtn = () => {
     checkEmailValidation(addEmail, addEmailMessage);
     checkPhoneValidation(addTelephone, addTelephoneMessage);
     checkPasswordValidation(addPassword, addPasswordMessage);
 
-    // TODO : 로딩 안뜸 ! 
-    // displayLoading();
+    displayLoading();
     debounce(addUser);
 }
 
@@ -71,7 +69,6 @@ window.addEventListener('load', () => {
     addTelephone.addEventListener('blur', () => checkPhoneValidation(addTelephone, addTelephoneMessage));
     addPassword.addEventListener('blur', () => checkPasswordValidation(addPassword, addPasswordMessage));
     addBtn.addEventListener("click", () => {
-        // displayLoading();
         clickAddBtn();
     });
 });

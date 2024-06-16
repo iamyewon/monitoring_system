@@ -13,12 +13,15 @@ const fetchData = () => {
     .catch((error) => {
         if (error.response && error.response.data) {
             const { code } = error.response.data;
-            if(code === ERROR_CODE.EC1006){
-                alert('[error] An error occurred. Please try again.');
-            }else if(code === ERROR_CODE.EC1007){
-                alert('[error] An error occurred. Please try again.');
-            }else{
-                alert('[error] An unknown error occurred.');
+            switch(code){
+                case ERROR_CODE.EC1006: 
+                    alert('[error] An error occurred. Please try again.');
+                    break;
+                case ERROR_CODE.EC1007: 
+                    alert('[error] An error occurred. Please try again.');
+                    break;
+                default: 
+                    alert('[error] An unknown error occurred.');
             }
         }
     })

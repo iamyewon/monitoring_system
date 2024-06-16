@@ -52,12 +52,18 @@ const handleUpdate = () => {
     .catch((error) => {
         if (error.response && error.response.data) {//TODO : 에러 - TypeError: Cannot read properties of undefined (reading 'data')
             const { code } = error.response.data; 
-            if(code === ERROR_CODE.EC1001){
-                alert('[error] There are unfilled fields.');
-            }else if(code === ERROR_CODE.EC1002){
-                alert('[error] There are fields that do not meet the validation criteria.');
-            }else{
-                alert('[error] An unknown error occurred.');
+            console.log(code);
+            switch(code){
+                case ERROR_CODE.EC1001: 
+                    // alert('[error] There are unfilled fields.');
+                    showAlert('error', 'There are unfilled or invalid fields.', 'Alert');
+                    break;
+                case ERROR_CODE.EC1002: 
+                    // alert('[error] There are fields that do not meet the validation criteria.');
+                    showAlert('error', 'There are unfilled or invalid fields.', 'Alert');
+                    break;
+                default: 
+                    alert('[error] An unknown error occurred.');
             }
         }
     })

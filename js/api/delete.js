@@ -17,9 +17,12 @@ const handleDelete = () => {
     .catch((error) => {
         if (error.response && error.response.data) {
             const { code } = error.response.data;
-            if(code === ERROR_CODE.EC1005){
-                alert('The specified ID does not exist.');
-            }
+
+            code === ERROR_CODE.EC1005 && alert('The specified ID does not exist.');
+
+            // if(code === ERROR_CODE.EC1005){
+            //     alert('The specified ID does not exist.');
+            // }
         }
     })
     .finally(hideLoading)
@@ -28,3 +31,4 @@ const handleDelete = () => {
 window.addEventListener('load', () => {
     checkDeleteBtn.addEventListener("click",  () => debounce(handleDelete));
 })
+
